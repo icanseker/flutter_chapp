@@ -1,3 +1,3 @@
-# chapp
+Flutter Chat App UI. (still under development)
 
-Flutter Chat App UI.
+## Screenshot
