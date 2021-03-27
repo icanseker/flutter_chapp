@@ -34,7 +34,6 @@ Map<String, Person> peopleList = {
     id: 'tesla',
     phoneNumber: '+90 503 999 99 99',
     avatarUrl: 'https://clearhub.tech/wp-content/uploads/2018/10/man-1.png',
-    status: PersonStatus.online,
     lastSeen: DateTime.parse('2021-03-14 23:32:34.612152'),
   ),
   'newton': new Person(

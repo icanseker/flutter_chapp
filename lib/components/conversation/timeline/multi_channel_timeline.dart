@@ -3,7 +3,7 @@ import 'package:chapp/components/conversation/blueprint/multi_channel_conversati
 import 'package:chapp/components/divider/divider.dart';
 import 'package:chapp/components/message/blueprint/incoming_message.dart';
 import 'package:chapp/components/message/blueprint/message.dart';
-import 'package:chapp/components/message/message_template.dart';
+import 'package:chapp/components/message/message_line.dart';
 import 'package:chapp/global/common.dart';
 import 'package:chapp/global/people_list.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +40,7 @@ class MultiChannelTimeline extends StatelessWidget {
       }
 
       widgetList.add(
-        MessageTemplate(
+        MessageLine(
           message: lifo.current.value,
           signColor: lifo.current.value is IncomingMessage &&
                   lifo.current.value.isUnRead()

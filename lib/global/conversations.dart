@@ -62,12 +62,21 @@ SingleChannelConversation _c1 = SingleChannelConversation(
           .setReadTime(DateTime.parse('2021-03-14 01:34:22.612152')),
     )
     .addMessage(
+      IncomingMessage(
+        TextMessage(
+            text:
+                'The three laws of motion set forth by Isaac Newton form the foundation of classical mechanics, together with the recognition that forces are directed quantities (vectors) and combine accordingly. The first law, also called the law of inertia, states that, unless acted upon by an external force, an object at rest remains at rest, or if in motion, it continues to move in a straight line with constant speed. Uniform motion therefore does not require a cause. Accordingly, mechanics concentrates not on motion as such but on the change in the state of motion of an object that results from the net force acting upon it. Newton’s second law equates the net force on an object to the rate of change of its momentum, the latter being the product of the mass of a body and its velocity. Newton’s third law, that of action and reaction, states that when two particles interact, the forces each exerts on the other are equal in magnitude and opposite in direction. Taken together, these mechanical laws in principle permit the determination of the future motions of a set of particles, providing their state of motion is known at some instant, as well as the forces that act between them and upon them from the outside. From this deterministic character of the laws of classical mechanics, profound (and probably incorrect) philosophical conclusions have been drawn in the past and even applied to human history.'),
+      )
+          .setReceivedTime(DateTime.parse('2021-03-24 11:26:34.612152'))
+          .setReadTime(DateTime.parse('2021-03-24 11:34:22.612152')),
+    )
+    .addMessage(
       OutgoingMessage(TextMessage(text: 'Why does physics work in SI units?'))
-          .setSentTime(DateTime.parse('2021-03-14 01:36:34.612152')),
+          .setSentTime(DateTime.parse('2021-03-25 01:36:34.612152')),
     );
 
 SingleChannelConversation _c2 = SingleChannelConversation(
-  conId: 'c4',
+  conId: 'c2',
   personId: 'curie',
 )
     .addMessage(
@@ -157,8 +166,28 @@ MultiChannelConversation _c3 = MultiChannelConversation(
           .setReadTime(DateTime.parse('2021-03-14 01:42:22.612152')),
     );
 
+SingleChannelConversation _c4 = SingleChannelConversation(
+  conId: 'c4',
+  personId: 'tesla',
+)
+    .addMessage(
+      OutgoingMessage(
+        TextMessage(
+            text: 'What happens in the gray zone between solid and liquid?'),
+      )
+          .setCreatedTime(DateTime.parse('2021-03-28 00:04:34.612152'))
+          .sendingErrorOccurred(),
+    )
+    .addMessage(
+      OutgoingMessage(
+        TextMessage(
+            text: 'What happens in the gray zone between solid and liquid?'),
+      ).setCreatedTime(DateTime.parse('2021-03-28 00:04:34.612152')),
+    );
+
 Map<String, Conversation> globalConversationList = {
   'c1': _c1,
   'c2': _c2,
   'c3': _c3,
+  'c4': _c4,
 };

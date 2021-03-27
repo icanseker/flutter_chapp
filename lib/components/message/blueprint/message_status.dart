@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
-enum MessageStatus { received, sent, delivered, read, send_error }
+enum MessageStatus {
+  received,
+  sent,
+  delivered,
+  read,
+  send_error,
+  waiting_for_connection
+}
 
 extension MessageStatusIde on MessageStatus {
   IconData get icon {
@@ -16,6 +23,8 @@ extension MessageStatusIde on MessageStatus {
         return Ionicons.checkmark_sharp;
       case MessageStatus.read:
         return Ionicons.checkmark_done_sharp;
+      case MessageStatus.waiting_for_connection:
+        return Ionicons.timer_outline;
     }
     return null;
   }
@@ -32,6 +41,8 @@ extension MessageStatusIde on MessageStatus {
         return Colors.black45;
       case MessageStatus.read:
         return Colors.lightGreen;
+      case MessageStatus.waiting_for_connection:
+        return Colors.red[900];
     }
     return null;
   }

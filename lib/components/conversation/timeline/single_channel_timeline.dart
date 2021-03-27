@@ -3,7 +3,7 @@ import 'package:chapp/components/conversation/blueprint/single_channel_conversat
 import 'package:chapp/components/divider/divider.dart';
 import 'package:chapp/components/message/blueprint/incoming_message.dart';
 import 'package:chapp/components/message/blueprint/message.dart';
-import 'package:chapp/components/message/message_template.dart';
+import 'package:chapp/components/message/message_line.dart';
 import 'package:chapp/global/common.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +37,7 @@ class SingleChannelTimeline extends StatelessWidget {
       }
 
       widgetList.add(
-        MessageTemplate(
+        MessageLine(
           message: lifo.current,
           signColor: lifo.current is IncomingMessage && lifo.current.isUnRead()
               ? unReadMessageSignColor

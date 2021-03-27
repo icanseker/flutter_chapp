@@ -1,29 +1,30 @@
 import 'package:chapp/components/empty_widget.dart';
-import 'package:chapp/components/message/blueprint/message_content_type.dart';
 import 'package:chapp/components/message/blueprint/message_content_template.dart';
-import 'package:chapp/components/message/blueprint/text_message.dart';
+import 'package:chapp/components/message/content/dynamic_message_content.dart';
+import 'package:chapp/components/message/template/message_template.dart';
 import 'package:chapp/helper/color.dart';
 import 'package:flutter/material.dart';
 
-class OutgoingMessageTemplate extends StatelessWidget {
-  final MessageContentTemplate message;
-  final Color backgroundColor;
-  final double maxWidth;
-  final Color signColor;
-  final String title;
-  final Color titleColor;
-  final IconData titlePrefix;
-
+class OutgoingMessageTemplate extends MessageTemplate {
   const OutgoingMessageTemplate({
     Key key,
-    @required this.message,
-    this.backgroundColor,
-    this.maxWidth = double.maxFinite,
-    this.title,
-    this.titleColor,
-    this.titlePrefix,
-    this.signColor,
-  }) : super(key: key);
+    @required MessageContentTemplate messageContent,
+    Color backgroundColor,
+    double maxWidth = double.maxFinite,
+    String title,
+    Color titleColor,
+    IconData titlePrefix,
+    Color signColor,
+  }) : super(
+          key: key,
+          messageContent: messageContent,
+          backgroundColor: backgroundColor,
+          maxWidth: maxWidth,
+          title: title,
+          titleColor: titleColor,
+          titlePrefix: titlePrefix,
+          signColor: signColor,
+        );
 
   @override
   Widget build(BuildContext context) {
@@ -84,12 +85,7 @@ class OutgoingMessageTemplate extends StatelessWidget {
                   )
                 : EmptyWidget(),
             this.title != null ? SizedBox(height: 4) : EmptyWidget(),
-            message.contentType == MessageContentType.text
-                ? Text(
-                    (message as TextMessage).text,
-                    style: TextStyle(fontSize: 16),
-                  )
-                : EmptyWidget(),
+            DynamicMessageContent(messageContent: messageContent),
           ],
         ),
       ),

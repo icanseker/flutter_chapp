@@ -1,12 +1,19 @@
 import 'package:chapp/components/message/blueprint/message.dart';
-import 'package:chapp/components/message/blueprint/message_status.dart';
 import 'package:chapp/components/message/blueprint/message_content_template.dart';
+import 'package:chapp/components/message/blueprint/message_status.dart';
 
 class OutgoingMessage extends Message {
+  DateTime createdTime;
   DateTime deliveredTime;
 
-  OutgoingMessage(MessageContentTemplate content)
-      : super(content: content);
+  OutgoingMessage(MessageContentTemplate content) : super(content: content) {
+    status = MessageStatus.waiting_for_connection;
+  }
+
+  OutgoingMessage setCreatedTime(DateTime createdTime) {
+    this.createdTime = createdTime;
+    return this;
+  }
 
   OutgoingMessage setDeliveredTime(DateTime deliveredTime) {
     this.deliveredTime = deliveredTime;
@@ -14,9 +21,14 @@ class OutgoingMessage extends Message {
     return this;
   }
 
+  OutgoingMessage sendingErrorOccurred() {
+    this.status = MessageStatus.send_error;
+    return this;
+  }
+
   @override
   DateTime get activityTime {
-    return sentTime;
+    return sentTime == null ? createdTime : sentTime;
   }
 
   @override
