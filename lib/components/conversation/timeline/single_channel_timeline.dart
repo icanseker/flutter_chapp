@@ -19,30 +19,41 @@ class SingleChannelTimeline extends StatelessWidget {
 
     Iterator<Message> lifo = conversation.messages.reversed.iterator;
     String currentTimeStampIde;
+    String currentMsgActivityTimeStampIde;
+    DateTimeStamp currentMsgActivityTimeStamp;
 
     while (lifo.moveNext()) {
-      DateTimeStamp msgActivityTimeStamp = lifo.current.activityTimeStamp;
+      currentMsgActivityTimeStamp = lifo.current.activityTimeStamp;
 
       if (currentTimeStampIde == null) {
         currentTimeStampIde =
-            DateTimeStamp.getTimeStampIdeOf(msgActivityTimeStamp);
+            DateTimeStamp.getTimeStampIdeOf(currentMsgActivityTimeStamp);
       } else {
-        String msgTimeStampIde =
-            DateTimeStamp.getTimeStampIdeOf(msgActivityTimeStamp);
+        currentMsgActivityTimeStampIde =
+            DateTimeStamp.getTimeStampIdeOf(currentMsgActivityTimeStamp);
 
-        if (msgTimeStampIde != currentTimeStampIde) {
+        if (currentMsgActivityTimeStampIde != currentTimeStampIde) {
           widgetList.add(HorizontalDivider(currentTimeStampIde));
-          currentTimeStampIde = msgTimeStampIde;
+          currentTimeStampIde = currentMsgActivityTimeStampIde;
         }
       }
 
       widgetList.add(
-        MessageLine(
-          message: lifo.current,
-          signColor: lifo.current is IncomingMessage && lifo.current.isUnRead()
-              ? unReadMessageSignColor
-              : null,
-        ),
+        lifo.current is IncomingMessage
+            ? MessageLine(
+                message: lifo.current,
+                signLineColor:
+                    lifo.current.isUnRead() ? unReadMessageSignColor : null,
+                activateTopRightBorderRadius: true,
+                activateBottomLeftBorderRadius: true,
+                activateBottomRightBorderRadius: true,
+              )
+            : MessageLine(
+                message: lifo.current,
+                activateTopLeftBorderRadius: true,
+                activateTopRightBorderRadius: true,
+                activateBottomLeftBorderRadius: true,
+              ),
       );
     }
 

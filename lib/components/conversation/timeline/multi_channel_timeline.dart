@@ -1,8 +1,8 @@
 import 'package:chapp/components/blueprint/datetime_stamp.dart';
 import 'package:chapp/components/conversation/blueprint/multi_channel_conversation.dart';
 import 'package:chapp/components/divider/divider.dart';
-import 'package:chapp/components/message/blueprint/incoming_message.dart';
 import 'package:chapp/components/message/blueprint/message.dart';
+import 'package:chapp/components/message/blueprint/outgoing_message.dart';
 import 'package:chapp/components/message/message_line.dart';
 import 'package:chapp/global/common.dart';
 import 'package:chapp/global/people_list.dart';
@@ -21,52 +21,75 @@ class MultiChannelTimeline extends StatelessWidget {
 
     Iterator<MapEntry<String, Message>> lifo =
         conversation.messages.reversed.iterator;
-    String currentTimeStampIde;
 
+    Message currentMessage;
+    DateTimeStamp currentMsgActivityTimeStamp;
+    String currentMsgActivityTimeStampIde;
+    String currentTimeStampIde;
     String currentSenderId;
+    String currentSenderTitle;
+    Color currentSenderColorRep;
 
     while (lifo.moveNext()) {
-      DateTimeStamp msgActivityTimeStamp = lifo.current.value.activityTimeStamp;
+      currentMsgActivityTimeStamp = lifo.current.value.activityTimeStamp;
 
       if (currentTimeStampIde == null) {
         currentTimeStampIde =
-            DateTimeStamp.getTimeStampIdeOf(msgActivityTimeStamp);
+            DateTimeStamp.getTimeStampIdeOf(currentMsgActivityTimeStamp);
       } else {
-        String msgTimeStampIde =
-            DateTimeStamp.getTimeStampIdeOf(msgActivityTimeStamp);
+        currentMsgActivityTimeStampIde =
+            DateTimeStamp.getTimeStampIdeOf(currentMsgActivityTimeStamp);
 
-        if (msgTimeStampIde != currentTimeStampIde) {
+        if (currentMsgActivityTimeStampIde != currentTimeStampIde) {
           widgetList.add(HorizontalDivider(currentTimeStampIde));
-          currentTimeStampIde = msgTimeStampIde;
+          currentTimeStampIde = currentMsgActivityTimeStampIde;
         }
       }
 
-      Message message = lifo.current.value;
-      String senderId = lifo.current.key;
-      String messageTitle;
+      currentMessage = lifo.current.value;
 
-      if (senderId != currentSenderId && senderId != myPersonalId) {
-        messageTitle = peopleList[senderId].title;
-        currentSenderId = senderId;
-      } else
-        messageTitle = null;
-
-      if (messageTitle == null) // you sending
-        widgetList.add(
-          MessageLine(message: message),
-        );
-      else
+      if (currentMessage is OutgoingMessage) {
         widgetList.add(
           MessageLine(
-            message: message,
-            signColor: message is IncomingMessage && message.isUnRead()
-                ? unReadMessageSignColor
-                : null,
-            title: messageTitle,
-            titleColor: conversation.getMemberColorRepresentative(senderId),
-            titlePrefix: Ionicons.person_outline,
+            message: currentMessage,
+            activateTopLeftBorderRadius: true,
+            activateTopRightBorderRadius: true,
+            activateBottomLeftBorderRadius: true,
           ),
         );
+      } else {
+        String senderId = lifo.current.key;
+        if (senderId != currentSenderId) {
+          currentSenderTitle = peopleList[senderId].title;
+          currentSenderId = senderId;
+          currentSenderColorRep =
+              conversation.getMemberColorRepresentative(senderId);
+
+          widgetList.add(
+            MessageLine(
+              message: currentMessage,
+              signLineColor:
+                  currentMessage.isUnRead() ? unReadMessageSignColor : null,
+              title: currentSenderTitle,
+              titleColor: currentSenderColorRep,
+              titlePrefix: Ionicons.person_outline,
+              activateTopRightBorderRadius: true,
+              activateBottomLeftBorderRadius: true,
+              activateBottomRightBorderRadius: true,
+            ),
+          );
+        } else
+          widgetList.add(
+            MessageLine(
+              message: currentMessage,
+              signLineColor:
+                  currentMessage.isUnRead() ? unReadMessageSignColor : null,
+              activateTopRightBorderRadius: true,
+              activateBottomLeftBorderRadius: true,
+              activateBottomRightBorderRadius: true,
+            ),
+          );
+      }
     }
 
     widgetList.add(HorizontalDivider(currentTimeStampIde));

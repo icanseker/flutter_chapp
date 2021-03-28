@@ -2,6 +2,7 @@ import 'package:chapp/components/empty_widget.dart';
 import 'package:chapp/components/message/blueprint/incoming_message.dart';
 import 'package:chapp/components/message/blueprint/message.dart';
 import 'package:chapp/components/message/blueprint/message_status.dart';
+import 'package:chapp/components/message/blueprint/message_template_sign_line_position.dart';
 import 'package:chapp/components/message/blueprint/outgoing_message.dart';
 import 'package:chapp/components/message/template/message_template.dart';
 import 'package:chapp/global/common.dart';
@@ -10,40 +11,44 @@ import 'package:intl/intl.dart';
 
 class MessageLine extends StatelessWidget {
   final Message message;
-  final Color signColor;
+
+  final bool activateTopLeftBorderRadius;
+  final bool activateTopRightBorderRadius;
+  final bool activateBottomLeftBorderRadius;
+  final bool activateBottomRightBorderRadius;
+
   final String title;
   final Color titleColor;
   final IconData titlePrefix;
 
+  final Color signLineColor;
+
   const MessageLine({
     Key key,
     @required this.message,
-    this.signColor,
+    this.activateTopLeftBorderRadius = false,
+    this.activateTopRightBorderRadius = false,
+    this.activateBottomLeftBorderRadius = false,
+    this.activateBottomRightBorderRadius = false,
     this.title,
-    this.titleColor = Colors.black,
+    this.titleColor,
     this.titlePrefix,
+    this.signLineColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double maxWidth = MediaQuery.of(context).size.width * .75;
+
     if (message is IncomingMessage) {
       IncomingMessage inMessage = message;
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Flexible(
-            child: MessageTemplate(
-              messageContent: inMessage.content,
-              maxWidth: MediaQuery.of(context).size.width * .75,
-              backgroundColor: incomingMessageTemplateBackground,
-              title: this.title != null ? this.title : null,
-              titlePrefix: this.titlePrefix != null ? this.titlePrefix : null,
-              titleColor: this.titleColor != null ? this.titleColor : null,
-              signLineColor: this.signColor != null ? this.signColor : null,
-              activateTopRightBorderRadius: true,
-              activateBottomLeftBorderRadius: true,
-              activateBottomRightBorderRadius: true,
-            ),
+          _getCustomMessageTemplate(
+            maxWidth,
+            incomingMessageTemplateBackground,
+            MessageTemplateSignLinePosition.left,
           ),
           Container(
             padding: EdgeInsets.all(4),
@@ -53,11 +58,8 @@ class MessageLine extends StatelessWidget {
           ),
         ],
       );
-    }
-
-    if (message is OutgoingMessage) {
+    } else if (message is OutgoingMessage) {
       OutgoingMessage outMessage = message;
-
       return Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -80,28 +82,39 @@ class MessageLine extends StatelessWidget {
               ],
             ),
           ),
-          Flexible(
-            child: MessageTemplate(
-              messageContent: outMessage.content,
-              maxWidth: MediaQuery.of(context).size.width * .75,
-              backgroundColor: message.status == MessageStatus.send_error
-                  ? sendErrorOccurredMessageTemplateBackground
-                  : message.status == MessageStatus.waiting_for_connection
-                      ? connectionWaitingMessageTemplateBackground
-                      : outgoingMessageTemplateBackground,
-              title: this.title != null ? this.title : null,
-              titlePrefix: this.titlePrefix != null ? this.titlePrefix : null,
-              titleColor: this.titleColor != null ? this.titleColor : null,
-              signLineColor: this.signColor != null ? this.signColor : null,
-              activateTopRightBorderRadius: true,
-              activateTopLeftBorderRadius: true,
-              activateBottomLeftBorderRadius: true,
-            ),
+          _getCustomMessageTemplate(
+            maxWidth,
+            message.status == MessageStatus.send_error
+                ? sendErrorOccurredMessageTemplateBackground
+                : message.status == MessageStatus.waiting_for_connection
+                    ? connectionWaitingMessageTemplateBackground
+                    : outgoingMessageTemplateBackground,
+            MessageTemplateSignLinePosition.right,
           ),
         ],
       );
     }
 
     return EmptyWidget();
+  }
+
+  Widget _getCustomMessageTemplate(double maxWidth, Color backgroundColor,
+      MessageTemplateSignLinePosition signLinePosition) {
+    return Flexible(
+      child: MessageTemplate(
+        messageContent: message.content,
+        maxWidth: maxWidth,
+        backgroundColor: backgroundColor,
+        title: this.title != null ? this.title : null,
+        titlePrefix: this.titlePrefix != null ? this.titlePrefix : null,
+        titleColor: this.titleColor != null ? this.titleColor : null,
+        signLineColor: this.signLineColor != null ? this.signLineColor : null,
+        signLinePosition: signLinePosition,
+        activateTopRightBorderRadius: activateTopRightBorderRadius,
+        activateTopLeftBorderRadius: activateTopLeftBorderRadius,
+        activateBottomRightBorderRadius: activateBottomRightBorderRadius,
+        activateBottomLeftBorderRadius: activateBottomLeftBorderRadius,
+      ),
+    );
   }
 }
