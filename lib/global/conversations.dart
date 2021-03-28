@@ -164,6 +164,49 @@ MultiChannelConversation _c3 = MultiChannelConversation(
       )
           .setReceivedTime(DateTime.parse('2021-03-14 01:40:34.612152'))
           .setReadTime(DateTime.parse('2021-03-14 01:42:22.612152')),
+    )
+    .addMessage(
+      personId: 'newton',
+      message: IncomingMessage(
+        TextMessage(
+          text:
+              'In classical mechanics the laws are initially formulated for point particles in which the dimensions, shapes, and other intrinsic properties of bodies are ignored. Thus in the first approximation even objects as large as Earth and the Sun are treated as pointlike.',
+        ),
+      )
+          .setReceivedTime(DateTime.parse('2021-03-14 01:42:34.612152'))
+          .setReadTime(DateTime.parse('2021-03-14 01:43:22.612152')),
+    )
+    .addMessage(
+      personId: 'newton',
+      message: IncomingMessage(
+        TextMessage(
+          text: 'e.g., in calculating planetary orbital motion',
+        ),
+      )
+          .setReceivedTime(DateTime.parse('2021-03-14 01:44:34.612152'))
+          .setReadTime(DateTime.parse('2021-03-14 01:45:22.612152')),
+    )
+    .addMessage(
+      personId: 'edison',
+      message: IncomingMessage(
+        TextMessage(
+          text:
+              'In rigid-body dynamics, the extension of bodies and their mass distributions are considered as well, but they are imagined to be incapable of deformation.',
+        ),
+      )
+          .setReceivedTime(DateTime.parse('2021-03-14 01:46:34.612152'))
+          .setReadTime(DateTime.parse('2021-03-14 01:48:22.612152')),
+    )
+    .addMessage(
+      personId: 'edison',
+      message: IncomingMessage(
+        TextMessage(
+          text:
+              'The mechanics of deformable solids is elasticity; hydrostatics and hydrodynamics treat, respectively, fluids at rest and in motion.',
+        ),
+      )
+          .setReceivedTime(DateTime.parse('2021-03-14 01:47:34.612152'))
+          .setReadTime(DateTime.parse('2021-03-14 01:48:22.612152')),
     );
 
 SingleChannelConversation _c4 = SingleChannelConversation(

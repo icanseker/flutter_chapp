@@ -23,6 +23,8 @@ class MultiChannelTimeline extends StatelessWidget {
         conversation.messages.reversed.iterator;
     String currentTimeStampIde;
 
+    String currentSenderId;
+
     while (lifo.moveNext()) {
       DateTimeStamp msgActivityTimeStamp = lifo.current.value.activityTimeStamp;
 
@@ -39,19 +41,32 @@ class MultiChannelTimeline extends StatelessWidget {
         }
       }
 
-      widgetList.add(
-        MessageLine(
-          message: lifo.current.value,
-          signColor: lifo.current.value is IncomingMessage &&
-                  lifo.current.value.isUnRead()
-              ? unReadMessageSignColor
-              : null,
-          title: peopleList[lifo.current.key].title,
-          titleColor:
-              conversation.getMemberColorRepresentative(lifo.current.key),
-          titlePrefix: Ionicons.person_outline,
-        ),
-      );
+      Message message = lifo.current.value;
+      String senderId = lifo.current.key;
+      String messageTitle;
+
+      if (senderId != currentSenderId && senderId != myPersonalId) {
+        messageTitle = peopleList[senderId].title;
+        currentSenderId = senderId;
+      } else
+        messageTitle = null;
+
+      if (messageTitle == null) // you sending
+        widgetList.add(
+          MessageLine(message: message),
+        );
+      else
+        widgetList.add(
+          MessageLine(
+            message: message,
+            signColor: message is IncomingMessage && message.isUnRead()
+                ? unReadMessageSignColor
+                : null,
+            title: messageTitle,
+            titleColor: conversation.getMemberColorRepresentative(senderId),
+            titlePrefix: Ionicons.person_outline,
+          ),
+        );
     }
 
     widgetList.add(HorizontalDivider(currentTimeStampIde));
