@@ -9,8 +9,8 @@ import 'package:chapp/components/conversation/blueprint/multi_channel_conversati
 import 'package:chapp/components/conversation/blueprint/single_channel_conversation.dart';
 import 'package:chapp/components/empty_widget.dart';
 import 'package:chapp/components/message/blueprint/message.dart';
-import 'package:chapp/components/message/blueprint/message_status.dart';
 import 'package:chapp/components/message/blueprint/message_content_type.dart';
+import 'package:chapp/components/message/blueprint/message_status.dart';
 import 'package:chapp/components/message/blueprint/outgoing_message.dart';
 import 'package:chapp/components/message/blueprint/text_message.dart';
 import 'package:chapp/global/common.dart';

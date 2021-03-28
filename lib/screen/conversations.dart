@@ -1,7 +1,7 @@
 import 'package:chapp/components/conversation/card/card.dart';
+import 'package:chapp/global/conversations.dart';
 import 'package:chapp/helper/color.dart';
 import 'package:flutter/material.dart';
-import 'package:chapp/global/conversations.dart';
 import 'package:ionicons/ionicons.dart';
 
 class ConversationsScreen extends StatelessWidget {

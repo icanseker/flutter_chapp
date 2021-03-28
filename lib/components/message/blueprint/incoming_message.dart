@@ -1,12 +1,11 @@
 import 'package:chapp/components/message/blueprint/message.dart';
-import 'package:chapp/components/message/blueprint/message_status.dart';
 import 'package:chapp/components/message/blueprint/message_content_template.dart';
+import 'package:chapp/components/message/blueprint/message_status.dart';
 
 class IncomingMessage extends Message {
   DateTime receivedTime;
 
-  IncomingMessage(MessageContentTemplate content)
-      : super(content: content) {
+  IncomingMessage(MessageContentTemplate content) : super(content: content) {
     this.status = MessageStatus.received;
   }
 

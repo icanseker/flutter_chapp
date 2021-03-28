@@ -1,0 +1,4 @@
+enum MessageTemplateSignLinePosition {
+  left,
+  right,
+}

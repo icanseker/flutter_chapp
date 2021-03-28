@@ -10,7 +10,10 @@ abstract class Conversation {
   int unReadCount = 0;
 
   Subject get subject;
+
   Image get avatar;
+
   DateTimeStamp get lastActivityTimeStamp;
+
   String get title;
 }

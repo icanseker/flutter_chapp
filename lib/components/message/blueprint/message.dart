@@ -1,7 +1,7 @@
 import 'package:chapp/components/blueprint/datetime_stamp.dart';
+import 'package:chapp/components/message/blueprint/message_content_template.dart';
 import 'package:chapp/components/message/blueprint/message_content_type.dart';
 import 'package:chapp/components/message/blueprint/message_status.dart';
-import 'package:chapp/components/message/blueprint/message_content_template.dart';
 
 abstract class Message {
   MessageStatus status;

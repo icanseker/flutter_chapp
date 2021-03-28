@@ -3,8 +3,7 @@ import 'package:chapp/components/message/blueprint/incoming_message.dart';
 import 'package:chapp/components/message/blueprint/message.dart';
 import 'package:chapp/components/message/blueprint/message_status.dart';
 import 'package:chapp/components/message/blueprint/outgoing_message.dart';
-import 'package:chapp/components/message/template/incoming_message_template.dart';
-import 'package:chapp/components/message/template/outgoing_message_template.dart';
+import 'package:chapp/components/message/template/message_template.dart';
 import 'package:chapp/global/common.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -33,14 +32,17 @@ class MessageLine extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Flexible(
-            child: IncomingMessageTemplate(
+            child: MessageTemplate(
               messageContent: inMessage.content,
               maxWidth: MediaQuery.of(context).size.width * .75,
               backgroundColor: incomingMessageTemplateBackground,
               title: this.title != null ? this.title : null,
               titlePrefix: this.titlePrefix != null ? this.titlePrefix : null,
               titleColor: this.titleColor != null ? this.titleColor : null,
-              signColor: this.signColor != null ? this.signColor : null,
+              signLineColor: this.signColor != null ? this.signColor : null,
+              activateTopRightBorderRadius: true,
+              activateBottomLeftBorderRadius: true,
+              activateBottomRightBorderRadius: true,
             ),
           ),
           Container(
@@ -79,7 +81,7 @@ class MessageLine extends StatelessWidget {
             ),
           ),
           Flexible(
-            child: OutgoingMessageTemplate(
+            child: MessageTemplate(
               messageContent: outMessage.content,
               maxWidth: MediaQuery.of(context).size.width * .75,
               backgroundColor: message.status == MessageStatus.send_error
@@ -90,7 +92,10 @@ class MessageLine extends StatelessWidget {
               title: this.title != null ? this.title : null,
               titlePrefix: this.titlePrefix != null ? this.titlePrefix : null,
               titleColor: this.titleColor != null ? this.titleColor : null,
-              signColor: this.signColor != null ? this.signColor : null,
+              signLineColor: this.signColor != null ? this.signColor : null,
+              activateTopRightBorderRadius: true,
+              activateTopLeftBorderRadius: true,
+              activateBottomLeftBorderRadius: true,
             ),
           ),
         ],

@@ -32,27 +32,27 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget {
         child: Row(
           children: [
             Container(
-                width: 36,
-                height: 36,
-                child: IconButton(
-                  icon: Icon(
-                    Ionicons.arrow_back_outline,
-                    color: Colors.black54,
-                    size: 18,
-                  ),
-                  onPressed: () => Navigator.of(context).pop(),
+              width: 36,
+              height: 36,
+              child: IconButton(
+                icon: Icon(
+                  Ionicons.arrow_back_outline,
+                  color: Colors.black54,
+                  size: 18,
                 ),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
             ),
             this.avatarImage != null
                 ? AvatarWidget(
-              avatarShape:
-              CircleShapedAvatar(radius: this.height / 2 - 6),
-              // padding vertical = 6
-              avatarImage: this.avatarImage,
-              borderSize: 1,
-              borderColor: Colors.black,
-              avatarBadge: this.avatarBadge,
-            )
+                    avatarShape:
+                        CircleShapedAvatar(radius: this.height / 2 - 6),
+                    // padding vertical = 6
+                    avatarImage: this.avatarImage,
+                    borderSize: 1,
+                    borderColor: Colors.black,
+                    avatarBadge: this.avatarBadge,
+                  )
                 : EmptyWidget(),
             this.avatarImage != null ? SizedBox(width: 12) : EmptyWidget(),
             Expanded(
@@ -67,14 +67,14 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                   this.subtitle != null
                       ? Text(
-                    this.subtitle,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 13,
-                      color: subtitleColor,
-                    ),
-                  )
+                          this.subtitle,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13,
+                            color: subtitleColor,
+                          ),
+                        )
                       : EmptyWidget(),
                 ],
               ),
@@ -101,8 +101,7 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             PopupMenuButton(
               padding: EdgeInsets.all(0),
-              itemBuilder: (BuildContext context) =>
-              [
+              itemBuilder: (BuildContext context) => [
                 PopupMenuItem(
                   child: Row(
                     children: [
