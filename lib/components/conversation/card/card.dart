@@ -233,8 +233,11 @@ class _ConversationCardState extends State<ConversationCard> {
     if (lastMessage is OutgoingMessage) {
       lastMessageIconIde = Container(
         width: 16,
-        child: Icon(lastMessage.status.icon,
-            size: 16, color: lastMessage.status.iconColor),
+        child: Icon(
+          lastMessage.status.icon,
+          size: 16,
+          color: lastMessage.status.iconColor,
+        ),
       );
     }
 

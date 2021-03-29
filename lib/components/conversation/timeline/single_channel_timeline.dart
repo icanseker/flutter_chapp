@@ -1,6 +1,6 @@
 import 'package:chapp/components/blueprint/datetime_stamp.dart';
 import 'package:chapp/components/conversation/blueprint/single_channel_conversation.dart';
-import 'package:chapp/components/divider/divider.dart';
+import 'package:chapp/components/conversation/timeline/timeline.dart';
 import 'package:chapp/components/message/blueprint/incoming_message.dart';
 import 'package:chapp/components/message/blueprint/message.dart';
 import 'package:chapp/components/message/message_line.dart';
@@ -33,7 +33,9 @@ class SingleChannelTimeline extends StatelessWidget {
             DateTimeStamp.getTimeStampIdeOf(currentMsgActivityTimeStamp);
 
         if (currentMsgActivityTimeStampIde != currentTimeStampIde) {
-          widgetList.add(HorizontalDivider(currentTimeStampIde));
+          widgetList.add(
+            ConversationTimeline.getTimelineDivider(currentTimeStampIde),
+          );
           currentTimeStampIde = currentMsgActivityTimeStampIde;
         }
       }
@@ -57,7 +59,9 @@ class SingleChannelTimeline extends StatelessWidget {
       );
     }
 
-    widgetList.add(HorizontalDivider(currentTimeStampIde));
+    widgetList.add(
+      ConversationTimeline.getTimelineDivider(currentTimeStampIde),
+    );
 
     return Wrap(
       children: widgetList.reversed.toList(),

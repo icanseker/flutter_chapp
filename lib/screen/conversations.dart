@@ -1,4 +1,5 @@
 import 'package:chapp/components/conversation/card/card.dart';
+import 'package:chapp/components/divider/divider.dart';
 import 'package:chapp/global/conversations.dart';
 import 'package:chapp/helper/color.dart';
 import 'package:flutter/material.dart';
@@ -57,17 +58,10 @@ class ConversationsScreen extends StatelessWidget {
 
             return Column(
               children: [
-                Container(
-                  child: ConversationCard(conversationKey: cKey),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        width: 1.0,
-                        color: Colors.black12,
-                      ),
-                    ),
-                    color: Colors.white,
-                  ),
+                Container(child: ConversationCard(conversationKey: cKey)),
+                HorizontalDivider(
+                  dividerIndentAmount: 72,
+                  dividerEndIndentAmount: 12,
                 ),
               ],
             );

@@ -2,6 +2,7 @@ import 'package:chapp/components/conversation/blueprint/conversation.dart';
 import 'package:chapp/components/conversation/blueprint/single_channel_conversation.dart';
 import 'package:chapp/components/conversation/timeline/multi_channel_timeline.dart';
 import 'package:chapp/components/conversation/timeline/single_channel_timeline.dart';
+import 'package:chapp/components/divider/divider.dart';
 import 'package:flutter/material.dart';
 
 class ConversationTimeline extends StatelessWidget {
@@ -27,6 +28,19 @@ class ConversationTimeline extends StatelessWidget {
               ? SingleChannelTimeline(conversation: conversation)
               : MultiChannelTimeline(conversation: conversation),
         ),
+      ),
+    );
+  }
+
+  static getTimelineDivider(String label) {
+    return HorizontalDivider(
+      labelAlignment: Alignment.center,
+      label: label,
+      labelMarginAmount: 12.0,
+      labelTextStyle: TextStyle(
+        fontSize: 16,
+        color: Colors.black54,
+        fontWeight: FontWeight.w500,
       ),
     );
   }
