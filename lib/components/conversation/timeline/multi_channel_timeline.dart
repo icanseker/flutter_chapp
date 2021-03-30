@@ -1,4 +1,3 @@
-import 'package:chapp/components/blueprint/datetime_stamp.dart';
 import 'package:chapp/components/conversation/blueprint/multi_channel_conversation.dart';
 import 'package:chapp/components/conversation/timeline/timeline.dart';
 import 'package:chapp/components/message/blueprint/message.dart';
@@ -17,41 +16,87 @@ class MultiChannelTimeline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> widgetList = [];
+    List<Widget> timelineWidgets = [];
 
-    Iterator<MapEntry<String, Message>> lifo =
-        conversation.messages.reversed.iterator;
+    Iterator<MapEntry<String, List<MapEntry<String, Message>>>>
+        timeStampedCMapIterator =
+        conversation.timeStampedConversationMap.entries.iterator;
 
-    Message currentMessage;
-    DateTimeStamp currentMsgActivityTimeStamp;
-    String currentMsgActivityTimeStampIde;
-    String currentTimeStampIde;
+    String seriesTimeStampIde;
+    List<MapEntry<String, Message>> timeStampedList;
+    String seriesSenderId;
     String currentSenderId;
-    String currentSenderTitle;
-    Color currentSenderColorRep;
+    String seriesSenderTitle;
+    Color seriesSenderColorRep;
+    int timeStampedListLength;
+    Message currentMessage;
+    List<Message> messageSeries;
 
-    while (lifo.moveNext()) {
-      currentMsgActivityTimeStamp = lifo.current.value.activityTimeStamp;
+    while (timeStampedCMapIterator.moveNext()) {
+      seriesTimeStampIde = timeStampedCMapIterator.current.key;
+      timeStampedList = timeStampedCMapIterator.current.value;
+      timeStampedListLength = timeStampedList.length;
+      messageSeries = null;
 
-      if (currentTimeStampIde == null) {
-        currentTimeStampIde =
-            DateTimeStamp.getTimeStampIdeOf(currentMsgActivityTimeStamp);
-      } else {
-        currentMsgActivityTimeStampIde =
-            DateTimeStamp.getTimeStampIdeOf(currentMsgActivityTimeStamp);
+      for (int i = 0; i < timeStampedListLength; i++) {
+        currentMessage = timeStampedList[i].value;
+        currentSenderId = timeStampedList[i].key;
 
-        if (currentMsgActivityTimeStampIde != currentTimeStampIde) {
-          widgetList.add(
-            ConversationTimeline.getTimelineDivider(currentTimeStampIde),
-          );
-          currentTimeStampIde = currentMsgActivityTimeStampIde;
+        if (currentSenderId != seriesSenderId) {
+          if (messageSeries != null && messageSeries.isNotEmpty)
+            timelineWidgets.add(
+              _getMessageSeriesWidget(
+                messageSeries.reversed.toList(),
+                seriesSenderTitle,
+                seriesSenderColorRep,
+              ),
+            );
+
+          seriesSenderId = currentSenderId;
+          seriesSenderTitle = peopleList[currentSenderId].title;
+          seriesSenderColorRep =
+              conversation.getMemberColorRepresentative(currentSenderId);
+
+          messageSeries = null;
         }
+
+        if (messageSeries == null) messageSeries = [];
+        messageSeries.add(currentMessage);
       }
 
-      currentMessage = lifo.current.value;
+      if (messageSeries != null && messageSeries.isNotEmpty)
+        timelineWidgets.add(
+          _getMessageSeriesWidget(
+            messageSeries.reversed.toList(),
+            seriesSenderTitle,
+            seriesSenderColorRep,
+          ),
+        );
+
+      timelineWidgets.add(
+        ConversationTimeline.getTimelineDivider(seriesTimeStampIde),
+      );
+    }
+
+    return Wrap(
+      children: timelineWidgets.reversed.toList(),
+      runSpacing: 8,
+    );
+  }
+
+  Widget _getMessageSeriesWidget(
+    List<Message> messageSeries,
+    String senderTitle,
+    Color senderColorRep,
+  ) {
+    List<Widget> seriesWidgets = [];
+    int seriesLength = messageSeries.length;
+
+    for (int i = 0; i < seriesLength; i++) {
+      Message currentMessage = messageSeries[i];
 
       if (currentMessage is OutgoingMessage) {
-        widgetList.add(
+        seriesWidgets.add(
           MessageLine(
             message: currentMessage,
             activateTopLeftBorderRadius: true,
@@ -59,48 +104,44 @@ class MultiChannelTimeline extends StatelessWidget {
             activateBottomLeftBorderRadius: true,
           ),
         );
-      } else {
-        String senderId = lifo.current.key;
-        if (senderId != currentSenderId) {
-          currentSenderTitle = peopleList[senderId].title;
-          currentSenderId = senderId;
-          currentSenderColorRep =
-              conversation.getMemberColorRepresentative(senderId);
+        continue;
+      }
 
-          widgetList.add(
-            MessageLine(
-              message: currentMessage,
-              signLineColor:
-                  currentMessage.isUnRead() ? unReadMessageSignColor : null,
-              title: currentSenderTitle,
-              titleColor: currentSenderColorRep,
-              titlePrefix: Ionicons.person_outline,
-              activateTopRightBorderRadius: true,
-              activateBottomLeftBorderRadius: true,
-              activateBottomRightBorderRadius: true,
-            ),
-          );
-        } else
-          widgetList.add(
-            MessageLine(
-              message: currentMessage,
-              signLineColor:
-                  currentMessage.isUnRead() ? unReadMessageSignColor : null,
-              activateTopRightBorderRadius: true,
-              activateBottomLeftBorderRadius: true,
-              activateBottomRightBorderRadius: true,
-            ),
-          );
+      if (i == 0) {
+        seriesWidgets.add(
+          MessageLine(
+            message: currentMessage,
+            signLineColor:
+                currentMessage.isUnRead() ? unReadMessageSignColor : null,
+            title: senderTitle,
+            titleColor: senderColorRep,
+            titlePrefix: Ionicons.person_outline,
+            activateTopRightBorderRadius: true,
+            activateBottomLeftBorderRadius: true,
+            activateBottomRightBorderRadius: true,
+          ),
+        );
+      } else {
+        seriesWidgets.add(
+          Stack(
+            children: [
+              MessageLine(
+                message: currentMessage,
+                signLineColor:
+                    currentMessage.isUnRead() ? unReadMessageSignColor : null,
+                activateTopRightBorderRadius: true,
+                activateBottomLeftBorderRadius: true,
+                activateBottomRightBorderRadius: true,
+              ),
+            ],
+          ),
+        );
       }
     }
 
-    widgetList.add(
-      ConversationTimeline.getTimelineDivider(currentTimeStampIde),
-    );
-
     return Wrap(
-      children: widgetList.reversed.toList(),
-      runSpacing: 8,
+      children: seriesWidgets.toList(),
+      runSpacing: 4,
     );
   }
 }

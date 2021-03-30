@@ -73,7 +73,7 @@ class DateTimeStamp {
     }
   }
 
-  static getTimeStampIdeOf(DateTimeStamp timeStamp) {
+  static String getTimeStampIdeOf(DateTimeStamp timeStamp) {
     switch (timeStamp.category) {
       case DateTimeStampCategory.just_now:
       case DateTimeStampCategory.today:

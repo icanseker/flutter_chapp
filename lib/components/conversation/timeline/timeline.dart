@@ -39,9 +39,11 @@ class ConversationTimeline extends StatelessWidget {
       labelMarginAmount: 12.0,
       labelTextStyle: TextStyle(
         fontSize: 16,
-        color: Colors.black54,
-        fontWeight: FontWeight.w500,
+        color: Colors.grey,
+        fontWeight: FontWeight.w400,
       ),
+      lineColor: Colors.grey[200],
+      dividerMarginInsets: EdgeInsets.only(top: 16, bottom: 2),
     );
   }
 }

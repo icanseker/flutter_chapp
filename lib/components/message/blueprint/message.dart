@@ -30,6 +30,10 @@ abstract class Message {
     return DateTimeStamp.getStampOf(activityTime);
   }
 
+  String get activityTimeStampIde {
+    return DateTimeStamp.getTimeStampIdeOf(activityTimeStamp);
+  }
+
   bool isUnRead() {
     return readTime == null;
   }

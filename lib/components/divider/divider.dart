@@ -6,6 +6,7 @@ class HorizontalDivider extends StatelessWidget {
   final Color lineColor;
   final double dividerIndentAmount;
   final double dividerEndIndentAmount;
+  final EdgeInsets dividerMarginInsets;
 
   final Alignment labelAlignment;
   final String label;
@@ -19,6 +20,7 @@ class HorizontalDivider extends StatelessWidget {
     this.lineColor = Colors.black12,
     this.dividerIndentAmount = 0.0,
     this.dividerEndIndentAmount = 0.0,
+    this.dividerMarginInsets,
     this.labelAlignment = Alignment.center,
     this.label,
     this.labelTextStyle,
@@ -29,6 +31,9 @@ class HorizontalDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: this.dividerWidth != null ? this.dividerWidth : null,
+      margin: this.dividerMarginInsets != null
+          ? this.dividerMarginInsets
+          : EdgeInsets.zero,
       child: _createDivider(),
     );
   }

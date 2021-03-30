@@ -67,4 +67,24 @@ class MultiChannelConversation extends Conversation {
 
   @override
   Subject get subject => this.group;
+
+  Map<String, List<MapEntry<String, Message>>> get timeStampedConversationMap {
+    Map<String, List<MapEntry<String, Message>>> timeStampedMap = {};
+
+    String currentDateTimeStampIde;
+    Iterator<MapEntry<String, Message>> messageIterator =
+        messages.reversed.iterator;
+
+    while (messageIterator.moveNext()) {
+      currentDateTimeStampIde =
+          messageIterator.current.value.activityTimeStampIde;
+
+      if (!timeStampedMap.containsKey(currentDateTimeStampIde))
+        timeStampedMap[currentDateTimeStampIde] = [];
+
+      timeStampedMap[currentDateTimeStampIde].add(messageIterator.current);
+    }
+
+    return timeStampedMap;
+  }
 }

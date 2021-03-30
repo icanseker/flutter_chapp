@@ -48,4 +48,22 @@ class SingleChannelConversation extends Conversation {
 
   @override
   Subject get subject => this.person;
+
+  Map<String, List<Message>> get timeStampedConversationMap {
+    Map<String, List<Message>> timeStampedMap = {};
+
+    String currentDateTimeStampIde;
+    Iterator<Message> messageIterator = messages.reversed.iterator;
+
+    while (messageIterator.moveNext()) {
+      currentDateTimeStampIde = messageIterator.current.activityTimeStampIde;
+
+      if (!timeStampedMap.containsKey(currentDateTimeStampIde))
+        timeStampedMap[currentDateTimeStampIde] = [];
+
+      timeStampedMap[currentDateTimeStampIde].add(messageIterator.current);
+    }
+
+    return timeStampedMap;
+  }
 }

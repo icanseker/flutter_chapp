@@ -140,8 +140,9 @@ class _ConversationCardState extends State<ConversationCard> {
         ),
         unReadCount > 0
             ? Container(
-                height: 20,
-                width: 20,
+                margin: EdgeInsets.only(left: 4),
+                height: 17,
+                width: 17,
                 alignment: Alignment.center,
                 decoration:
                     BoxDecoration(shape: BoxShape.circle, color: Colors.cyan),
@@ -149,6 +150,7 @@ class _ConversationCardState extends State<ConversationCard> {
                   unReadCount > 99 ? '99' : unReadCount.toString(),
                   style: TextStyle(
                     color: Colors.white,
+                    fontSize: 12,
                   ),
                 ),
               )

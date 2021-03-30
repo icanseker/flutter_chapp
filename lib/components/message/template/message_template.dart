@@ -3,6 +3,7 @@ import 'package:chapp/components/message/blueprint/message_content_template.dart
 import 'package:chapp/components/message/blueprint/message_template_sign_line_position.dart';
 import 'package:chapp/components/message/content/dynamic_message_content.dart';
 import 'package:chapp/helper/color.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MessageTemplate extends StatelessWidget {
@@ -74,31 +75,14 @@ class MessageTemplate extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             this.title != null
-                ? Row(
-                    children: [
-                      this.titlePrefix != null
-                          ? Container(
-                              width: 24,
-                              height: 24,
-                              child: Icon(
-                                this.titlePrefix,
-                                size: 18,
-                                color: titleColor,
-                              ),
-                            )
-                          : EmptyWidget(),
-                      Expanded(
-                        child: Text(
-                          this.title,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15,
-                            color: this.titleColor,
-                          ),
-                        ),
-                      )
-                    ],
+                ? Text(
+                    this.title,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: this.titleColor,
+                    ),
                   )
                 : EmptyWidget(),
             this.title != null ? SizedBox(height: 4) : EmptyWidget(),
