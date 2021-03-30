@@ -2,4 +2,4 @@ Flutter Chat App UI. (still under development)
 
 ## Screenshot
 
-<img src="screenshots/1.png" height="300em" />
+<img src="screenshots/1.jpg" height="300em" />
