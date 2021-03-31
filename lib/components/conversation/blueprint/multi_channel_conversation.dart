@@ -1,12 +1,13 @@
-import 'package:chapp/components/blueprint/datetime_stamp.dart';
-import 'package:chapp/components/blueprint/group.dart';
-import 'package:chapp/components/blueprint/subject.dart';
 import 'package:chapp/components/conversation/blueprint/conversation.dart';
 import 'package:chapp/components/message/blueprint/incoming_message.dart';
 import 'package:chapp/components/message/blueprint/message.dart';
 import 'package:chapp/global/common.dart';
 import 'package:chapp/global/group_list.dart';
 import 'package:chapp/global/people_list.dart';
+import 'package:chapp/model/datetime/datetime_stamp.dart';
+import 'package:chapp/model/subject/group.dart';
+import 'package:chapp/model/subject/subject.dart';
+import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:flutter/material.dart';
 
 class MultiChannelConversation extends Conversation {
@@ -51,7 +52,7 @@ class MultiChannelConversation extends Conversation {
 
   @override
   Image get avatar => group.avatarUrl == null
-      ? defaultGroupAvatar
+      ? ChappTheme.defaultGroupAvatar
       : Image.network(group.avatarUrl);
 
   @override

@@ -1,6 +1,4 @@
 import 'package:chapp/components/avatar/blueprint/avatar_badge.dart';
-import 'package:chapp/components/blueprint/person.dart';
-import 'package:chapp/components/blueprint/person_status.dart';
 import 'package:chapp/components/conversation/appbar/chatbar.dart';
 import 'package:chapp/components/conversation/blueprint/conversation.dart';
 import 'package:chapp/components/conversation/blueprint/single_channel_conversation.dart';
@@ -8,6 +6,8 @@ import 'package:chapp/components/conversation/timeline/timeline.dart';
 import 'package:chapp/components/typingbar/typing_bar.dart';
 import 'package:chapp/global/conversations.dart';
 import 'package:chapp/helper/color.dart';
+import 'package:chapp/model/subject/person.dart';
+import 'package:chapp/model/subject/person_status.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {

@@ -58,7 +58,10 @@ class ConversationsScreen extends StatelessWidget {
 
             return Column(
               children: [
-                Container(child: ConversationCard(conversationKey: cKey)),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                  child: ConversationCard(conversationKey: cKey),
+                ),
                 HorizontalDivider(
                   dividerIndentAmount: 72,
                   dividerEndIndentAmount: 12,
@@ -67,7 +70,6 @@ class ConversationsScreen extends StatelessWidget {
             );
           },
         ),
-        margin: EdgeInsets.only(top: 4),
       ),
     );
   }

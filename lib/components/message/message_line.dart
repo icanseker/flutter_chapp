@@ -5,7 +5,7 @@ import 'package:chapp/components/message/blueprint/message_status.dart';
 import 'package:chapp/components/message/blueprint/message_template_sign_line_position.dart';
 import 'package:chapp/components/message/blueprint/outgoing_message.dart';
 import 'package:chapp/components/message/template/message_template.dart';
-import 'package:chapp/global/common.dart';
+import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -47,7 +47,7 @@ class MessageLine extends StatelessWidget {
         children: [
           _getCustomMessageTemplate(
             maxWidth,
-            incomingMessageTemplateBackground,
+            ChappTheme.incomingMessageTemplateBackground,
             MessageTemplateSignLinePosition.left,
           ),
           Container(
@@ -85,10 +85,10 @@ class MessageLine extends StatelessWidget {
           _getCustomMessageTemplate(
             maxWidth,
             message.status == MessageStatus.send_error
-                ? sendErrorOccurredMessageTemplateBackground
+                ? ChappTheme.sendErrorOccurredMessageTemplateBackground
                 : message.status == MessageStatus.waiting_for_connection
-                    ? connectionWaitingMessageTemplateBackground
-                    : outgoingMessageTemplateBackground,
+                    ? ChappTheme.connectionWaitingMessageTemplateBackground
+                    : ChappTheme.outgoingMessageTemplateBackground,
             MessageTemplateSignLinePosition.right,
           ),
         ],

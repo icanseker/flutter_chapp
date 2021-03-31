@@ -3,6 +3,7 @@ import 'package:chapp/components/avatar/blueprint/avatar_badge.dart';
 import 'package:chapp/components/avatar/blueprint/circle_avatar.dart';
 import 'package:chapp/components/empty_widget.dart';
 import 'package:chapp/helper/color.dart';
+import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -60,11 +61,7 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    this.title,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-                  ),
+                  _titleTextWidget(this.title),
                   this.subtitle != null
                       ? Text(
                           this.subtitle,
@@ -137,6 +134,18 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
     );
+  }
+
+  Widget _titleTextWidget(String title) {
+    Text textWidget = Text(
+      title,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+    );
+
+    return ChappTheme.autoSizedConversationChatBarTitleText
+        ? FittedBox(fit: BoxFit.fitWidth, child: textWidget)
+        : textWidget;
   }
 
   @override

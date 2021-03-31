@@ -1,5 +1,5 @@
-import 'package:chapp/components/blueprint/datetime_stamp.dart';
-import 'package:chapp/components/blueprint/subject.dart';
+import 'package:chapp/model/datetime/datetime_stamp.dart';
+import 'package:chapp/model/subject/subject.dart';
 import 'package:flutter/material.dart';
 
 abstract class Conversation {

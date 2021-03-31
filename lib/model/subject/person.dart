@@ -1,5 +1,5 @@
-import 'package:chapp/components/blueprint/person_status.dart';
-import 'package:chapp/components/blueprint/subject.dart';
+import 'package:chapp/model/subject/person_status.dart';
+import 'package:chapp/model/subject/subject.dart';
 import 'package:flutter/material.dart';
 
 class Person extends Subject {

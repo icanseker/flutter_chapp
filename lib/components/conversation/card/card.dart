@@ -1,9 +1,6 @@
 import 'package:chapp/components/avatar/avatar_widget.dart';
 import 'package:chapp/components/avatar/blueprint/avatar_badge.dart';
 import 'package:chapp/components/avatar/blueprint/circle_avatar.dart';
-import 'package:chapp/components/blueprint/datetime_stamp.dart';
-import 'package:chapp/components/blueprint/datetime_stamp_category.dart';
-import 'package:chapp/components/blueprint/person_status.dart';
 import 'package:chapp/components/conversation/blueprint/conversation.dart';
 import 'package:chapp/components/conversation/blueprint/multi_channel_conversation.dart';
 import 'package:chapp/components/conversation/blueprint/single_channel_conversation.dart';
@@ -15,6 +12,10 @@ import 'package:chapp/components/message/blueprint/outgoing_message.dart';
 import 'package:chapp/components/message/blueprint/text_message.dart';
 import 'package:chapp/global/common.dart';
 import 'package:chapp/global/conversations.dart';
+import 'package:chapp/model/datetime/datetime_stamp.dart';
+import 'package:chapp/model/datetime/datetime_stamp_category.dart';
+import 'package:chapp/model/subject/person_status.dart';
+import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:chapp/screen/chat.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -55,7 +56,6 @@ class _ConversationCardState extends State<ConversationCard> {
         });
       },
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -131,13 +131,7 @@ class _ConversationCardState extends State<ConversationCard> {
         titlePrefix != null
             ? Icon(titlePrefix, color: Colors.black54)
             : EmptyWidget(),
-        Flexible(
-          child: Text(
-            title,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-          ),
-        ),
+        Flexible(child: _titleTextWidget(title)),
         unReadCount > 0
             ? Container(
                 margin: EdgeInsets.only(left: 4),
@@ -157,6 +151,18 @@ class _ConversationCardState extends State<ConversationCard> {
             : EmptyWidget(),
       ],
     );
+  }
+
+  Widget _titleTextWidget(String title) {
+    Text textWidget = Text(
+      title,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+    );
+
+    return ChappTheme.autoSizedConversationCardTitleText
+        ? FittedBox(fit: BoxFit.fitWidth, child: textWidget)
+        : textWidget;
   }
 
   Widget _lastActivityTimeWidget() {

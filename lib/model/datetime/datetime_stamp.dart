@@ -1,4 +1,4 @@
-import 'package:chapp/components/blueprint/datetime_stamp_category.dart';
+import 'package:chapp/model/datetime/datetime_stamp_category.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

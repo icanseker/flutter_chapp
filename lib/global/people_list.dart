@@ -1,5 +1,5 @@
-import 'package:chapp/components/blueprint/person.dart';
-import 'package:chapp/components/blueprint/person_status.dart';
+import 'package:chapp/model/subject/person.dart';
+import 'package:chapp/model/subject/person_status.dart';
 
 Map<String, Person> peopleList = {
   'icanseker': new Person(

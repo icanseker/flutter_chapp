@@ -1,4 +1,4 @@
-import 'package:chapp/components/blueprint/group.dart';
+import 'package:chapp/model/subject/group.dart';
 
 Map<String, Group> groupList = {
   'g1': new Group(
