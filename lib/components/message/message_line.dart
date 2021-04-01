@@ -1,10 +1,13 @@
 import 'package:chapp/components/empty_widget.dart';
+import 'package:chapp/components/icons/custom_icons.dart';
 import 'package:chapp/components/message/blueprint/incoming_message.dart';
 import 'package:chapp/components/message/blueprint/message.dart';
 import 'package:chapp/components/message/blueprint/message_status.dart';
 import 'package:chapp/components/message/blueprint/message_template_sign_line_position.dart';
 import 'package:chapp/components/message/blueprint/outgoing_message.dart';
 import 'package:chapp/components/message/template/message_template.dart';
+import 'package:chapp/components/swipeable/blueprint/swipe_definition.dart';
+import 'package:chapp/components/swipeable/swipe_ability.dart';
 import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -42,56 +45,80 @@ class MessageLine extends StatelessWidget {
 
     if (message is IncomingMessage) {
       IncomingMessage inMessage = message;
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          _getCustomMessageTemplate(
-            maxWidth,
-            ChappTheme.incomingMessageTemplateBackground,
-            MessageTemplateSignLinePosition.left,
-          ),
-          Container(
-            padding: EdgeInsets.all(4),
-            child: Text(
-              DateFormat.Hm().format(inMessage.receivedTime),
+      return SwipeAbility(
+        leftSwipe: SwipeDefinition(
+          background: Container(color: Colors.greenAccent),
+        ),
+        rightSwipe: SwipeDefinition(
+          background: Container(color: Colors.grey),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            _getCustomMessageTemplate(
+              maxWidth,
+              ChappTheme.incomingMessageTemplateBackground,
+              MessageTemplateSignLinePosition.left,
             ),
-          ),
-        ],
+            Container(
+              padding: EdgeInsets.all(4),
+              child: Text(
+                DateFormat.Hm().format(inMessage.receivedTime),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {},
+              child: Icon(
+                CustomIcon.emotion,
+                color: Colors.black45,
+                size: 20,
+              ),
+            ),
+          ],
+        ),
       );
     } else if (message is OutgoingMessage) {
       OutgoingMessage outMessage = message;
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Container(
-            padding: EdgeInsets.all(4),
-            child: Wrap(
-              crossAxisAlignment: WrapCrossAlignment.end,
-              spacing: 4,
-              children: [
-                Text(
-                  DateFormat.Hm().format(outMessage.sentTime == null
-                      ? outMessage.createdTime
-                      : outMessage.sentTime),
-                ),
-                Icon(
-                  outMessage.status.icon,
-                  size: 14,
-                  color: outMessage.status.iconColor,
-                )
-              ],
+      return SwipeAbility(
+        leftSwipe: SwipeDefinition(
+          background: Container(color: Colors.greenAccent),
+        ),
+        rightSwipe: SwipeDefinition(
+          background: Container(color: Colors.grey),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              padding: EdgeInsets.all(4),
+              child: Wrap(
+                crossAxisAlignment: WrapCrossAlignment.end,
+                spacing: 4,
+                children: [
+                  Text(
+                    DateFormat.Hm().format(outMessage.sentTime == null
+                        ? outMessage.createdTime
+                        : outMessage.sentTime),
+                  ),
+                  Icon(
+                    outMessage.status.icon,
+                    size: 14,
+                    color: outMessage.status.iconColor,
+                  )
+                ],
+              ),
             ),
-          ),
-          _getCustomMessageTemplate(
-            maxWidth,
-            message.status == MessageStatus.send_error
-                ? ChappTheme.sendErrorOccurredMessageTemplateBackground
-                : message.status == MessageStatus.waiting_for_connection
-                    ? ChappTheme.connectionWaitingMessageTemplateBackground
-                    : ChappTheme.outgoingMessageTemplateBackground,
-            MessageTemplateSignLinePosition.right,
-          ),
-        ],
+            _getCustomMessageTemplate(
+              maxWidth,
+              message.status == MessageStatus.send_error
+                  ? ChappTheme.sendErrorOccurredMessageTemplateBackground
+                  : message.status == MessageStatus.waiting_for_connection
+                      ? ChappTheme.connectionWaitingMessageTemplateBackground
+                      : ChappTheme.outgoingMessageTemplateBackground,
+              MessageTemplateSignLinePosition.right,
+            ),
+          ],
+        ),
       );
     }
 

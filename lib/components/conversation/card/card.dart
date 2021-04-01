@@ -55,69 +55,66 @@ class _ConversationCardState extends State<ConversationCard> {
           conversation = globalConversationList[conversationKey];
         });
       },
-      child: Container(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              child: AvatarWidget(
-                avatarShape: CircleShapedAvatar(radius: 30),
-                avatarImage: conversation.avatar,
-                borderSize: 1,
-                borderColor: Colors.black,
-                avatarBadge: (conversation is MultiChannelConversation)
-                    ? null
-                    : (conversation as SingleChannelConversation)
-                                .personStatus !=
-                            PersonStatus.online
-                        ? null
-                        : AvatarBadge(
-                            position: Alignment.topRight,
-                            color: PersonStatus.online.ideColor,
-                            size: 12,
-                            borderColor: Colors.white,
-                            borderSize: 1,
-                          ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            child: AvatarWidget(
+              avatarShape: CircleShapedAvatar(radius: 30),
+              avatarImage: conversation.avatar,
+              borderSize: 1,
+              borderColor: Colors.black,
+              avatarBadge: (conversation is MultiChannelConversation)
+                  ? null
+                  : (conversation as SingleChannelConversation).personStatus !=
+                          PersonStatus.online
+                      ? null
+                      : AvatarBadge(
+                          position: Alignment.topRight,
+                          color: PersonStatus.online.ideColor,
+                          size: 12,
+                          borderColor: Colors.white,
+                          borderSize: 1,
+                        ),
+            ),
+          ),
+          SizedBox(width: 12),
+          Expanded(
+            child: Container(
+              child: Column(
+                children: [
+                  _titleWidget(
+                    title: conversation.title,
+                    unReadCount: conversation.unReadCount,
+                    titlePrefix: conversation is MultiChannelConversation
+                        ? Ionicons.people_circle_outline
+                        : null,
+                  ),
+                  _lastMessageWidget(
+                    lastMessage: conversation is SingleChannelConversation
+                        ? (conversation as SingleChannelConversation)
+                            .lastMessage
+                        : (conversation as MultiChannelConversation)
+                            .lastMessage
+                            .value,
+                    senderTitle: conversation is MultiChannelConversation
+                        ? (conversation as MultiChannelConversation)
+                                    .lastMessageSenderId ==
+                                myPersonalId
+                            ? 'You'
+                            : (conversation as MultiChannelConversation)
+                                .lastMessageSenderTitle
+                        : null,
+                  )
+                ],
               ),
             ),
-            SizedBox(width: 12),
-            Expanded(
-              child: Container(
-                child: Column(
-                  children: [
-                    _titleWidget(
-                      title: conversation.title,
-                      unReadCount: conversation.unReadCount,
-                      titlePrefix: conversation is MultiChannelConversation
-                          ? Ionicons.people_circle_outline
-                          : null,
-                    ),
-                    _lastMessageWidget(
-                      lastMessage: conversation is SingleChannelConversation
-                          ? (conversation as SingleChannelConversation)
-                              .lastMessage
-                          : (conversation as MultiChannelConversation)
-                              .lastMessage
-                              .value,
-                      senderTitle: conversation is MultiChannelConversation
-                          ? (conversation as MultiChannelConversation)
-                                      .lastMessageSenderId ==
-                                  myPersonalId
-                              ? 'You'
-                              : (conversation as MultiChannelConversation)
-                                  .lastMessageSenderTitle
-                          : null,
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              width: 75,
-              child: _lastActivityTimeWidget(),
-            ),
-          ],
-        ),
+          ),
+          Container(
+            width: 75,
+            child: _lastActivityTimeWidget(),
+          ),
+        ],
       ),
     );
   }

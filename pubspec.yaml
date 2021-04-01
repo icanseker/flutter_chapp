@@ -55,6 +55,9 @@ flutter:
           weight: 500
         - asset: assets/fonts/Barlow/Barlow-SemiBold.ttf
           weight: 600
+    - family: Emotion
+      fonts:
+        - asset: assets/custom-icons/Emotion.ttf
   assets:
     - assets/images/user-icon.png
     - assets/images/group-icon.png

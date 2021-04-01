@@ -23,7 +23,7 @@ class ConversationTimeline extends StatelessWidget {
         controller: _scrollController,
         child: Container(
           width: double.maxFinite,
-          padding: EdgeInsets.all(12.0),
+          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
           child: conversation is SingleChannelConversation
               ? SingleChannelTimeline(conversation: conversation)
               : MultiChannelTimeline(conversation: conversation),
