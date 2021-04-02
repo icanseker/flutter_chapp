@@ -5,6 +5,7 @@ class ChappTheme{
   static Image defaultAvatar = Image.asset('assets/images/user-icon.png');
   static Image defaultGroupAvatar = Image.asset('assets/images/group-icon.png');
 
+  static Color chatScreenBackground = const Color(0xFFFCFCFCFC);
   static Color incomingMessageTemplateBackground = const Color(0xFFEDEDED);
   static Color outgoingMessageTemplateBackground = const Color(0xFFCDE3FF);
   static Color sendErrorOccurredMessageTemplateBackground = const Color(0xFFFFCDD2);

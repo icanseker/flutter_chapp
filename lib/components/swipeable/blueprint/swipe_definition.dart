@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-class SwipeDefinition {
-  final Widget background;
-  final double swipeThreshold;
-
+abstract class SwipeDefinition {
+  double swipeThreshold;
   final VoidCallback swipeCallback;
 
   SwipeDefinition({
-    @required this.background,
     this.swipeCallback,
-    this.swipeThreshold = 24.0,
-  });
+    this.swipeThreshold = 36.0,
+  }) {
+    this.swipeThreshold /= 100.0;
+  }
 }

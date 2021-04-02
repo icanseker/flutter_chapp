@@ -5,9 +5,9 @@ import 'package:chapp/components/conversation/blueprint/single_channel_conversat
 import 'package:chapp/components/conversation/timeline/timeline.dart';
 import 'package:chapp/components/typingbar/typing_bar.dart';
 import 'package:chapp/global/conversations.dart';
-import 'package:chapp/helper/color.dart';
 import 'package:chapp/model/subject/person.dart';
 import 'package:chapp/model/subject/person_status.dart';
+import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -30,7 +30,7 @@ class _ChatScreenState extends State<ChatScreen> {
     conversation.unReadCount = 0;
 
     return Scaffold(
-      backgroundColor: ColorHelper.createMaterialColor(Color(0xFFFCFCFCFC)),
+      backgroundColor: ChappTheme.chatScreenBackground,
       appBar: conversation is SingleChannelConversation
           ? ChatBar(
               title: conversation.title,

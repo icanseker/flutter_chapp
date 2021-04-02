@@ -1,16 +1,16 @@
 import 'package:chapp/components/empty_widget.dart';
-import 'package:chapp/components/icons/custom_icons.dart';
 import 'package:chapp/components/message/blueprint/incoming_message.dart';
 import 'package:chapp/components/message/blueprint/message.dart';
 import 'package:chapp/components/message/blueprint/message_status.dart';
 import 'package:chapp/components/message/blueprint/message_template_sign_line_position.dart';
 import 'package:chapp/components/message/blueprint/outgoing_message.dart';
 import 'package:chapp/components/message/template/message_template.dart';
-import 'package:chapp/components/swipeable/blueprint/swipe_definition.dart';
-import 'package:chapp/components/swipeable/swipe_ability.dart';
+import 'package:chapp/components/swipeable/blueprint/icon_swipe_definition.dart';
+import 'package:chapp/components/swipeable/icon_swipe_ability.dart';
 import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ionicons/ionicons.dart';
 
 class MessageLine extends StatelessWidget {
   final Message message;
@@ -45,12 +45,15 @@ class MessageLine extends StatelessWidget {
 
     if (message is IncomingMessage) {
       IncomingMessage inMessage = message;
-      return SwipeAbility(
-        leftSwipe: SwipeDefinition(
-          background: Container(color: Colors.greenAccent),
+      return IconSwipeAbility(
+        contextWidth: MediaQuery.of(context).size.width,
+        leftSwipe: IconSwipeDefinition(
+          iconData: Ionicons.arrow_undo_outline,
+          brightenEffect: true,
         ),
-        rightSwipe: SwipeDefinition(
-          background: Container(color: Colors.grey),
+        rightSwipe: IconSwipeDefinition(
+          iconData: Ionicons.arrow_redo_outline,
+          brightenEffect: true,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -66,25 +69,20 @@ class MessageLine extends StatelessWidget {
                 DateFormat.Hm().format(inMessage.receivedTime),
               ),
             ),
-            GestureDetector(
-              onTap: () {},
-              child: Icon(
-                CustomIcon.emotion,
-                color: Colors.black45,
-                size: 20,
-              ),
-            ),
           ],
         ),
       );
     } else if (message is OutgoingMessage) {
       OutgoingMessage outMessage = message;
-      return SwipeAbility(
-        leftSwipe: SwipeDefinition(
-          background: Container(color: Colors.greenAccent),
+      return IconSwipeAbility(
+        contextWidth: MediaQuery.of(context).size.width,
+        leftSwipe: IconSwipeDefinition(
+          iconData: Ionicons.arrow_undo_outline,
+          brightenEffect: true,
         ),
-        rightSwipe: SwipeDefinition(
-          background: Container(color: Colors.grey),
+        rightSwipe: IconSwipeDefinition(
+          iconData: Ionicons.arrow_redo_outline,
+          brightenEffect: true,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
