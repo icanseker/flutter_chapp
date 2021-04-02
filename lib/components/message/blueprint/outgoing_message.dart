@@ -6,7 +6,11 @@ class OutgoingMessage extends Message {
   DateTime createdTime;
   DateTime deliveredTime;
 
-  OutgoingMessage(MessageContentTemplate content) : super(content: content) {
+  OutgoingMessage(MessageContentTemplate content, {bool isForwarded = false})
+      : super(
+          content: content,
+          isForwarded: isForwarded,
+        ) {
     status = MessageStatus.waiting_for_connection;
   }
 

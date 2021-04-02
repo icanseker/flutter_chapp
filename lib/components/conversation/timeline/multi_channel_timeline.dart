@@ -116,7 +116,6 @@ class MultiChannelTimeline extends StatelessWidget {
                 : null,
             title: senderTitle,
             titleColor: senderColorRep,
-            titlePrefix: Ionicons.person_outline,
             activateTopRightBorderRadius: true,
             activateBottomLeftBorderRadius: true,
             activateBottomRightBorderRadius: true,

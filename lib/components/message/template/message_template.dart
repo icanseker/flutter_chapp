@@ -23,6 +23,10 @@ class MessageTemplate extends StatelessWidget {
   final Color titleColor;
   final IconData titlePrefix;
 
+  final String definition;
+  final Color definitionColor;
+  final IconData definitionPrefix;
+
   final MessageTemplateSignLinePosition signLinePosition;
   final Color signLineColor;
 
@@ -36,8 +40,11 @@ class MessageTemplate extends StatelessWidget {
     this.backgroundColor,
     this.maxWidth = double.maxFinite,
     this.title,
-    this.titleColor,
+    this.titleColor = Colors.black,
     this.titlePrefix,
+    this.definition,
+    this.definitionColor = Colors.black38,
+    this.definitionPrefix,
     this.signLinePosition = MessageTemplateSignLinePosition.left,
     this.signLineColor,
   }) : super(key: key);
@@ -74,23 +81,67 @@ class MessageTemplate extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            this.title != null
-                ? Text(
-                    this.title,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15,
-                      color: this.titleColor,
-                    ),
-                  )
-                : EmptyWidget(),
-            this.title != null ? SizedBox(height: 4) : EmptyWidget(),
+            _createTitleWidget(),
+            this.title != null ? SizedBox(height: 6) : EmptyWidget(),
+            _createDefinitionWidget(),
+            this.definition != null ? SizedBox(height: 2) : EmptyWidget(),
             DynamicMessageContent(messageContent: messageContent),
           ],
         ),
       ),
     );
+  }
+
+  Widget _createTitleWidget() {
+    return this.title != null
+        ? Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              this.titlePrefix != null
+                  ? Icon(this.titlePrefix, size: 16, color: this.titleColor)
+                  : EmptyWidget(),
+              this.titlePrefix != null ? SizedBox(width: 4) : EmptyWidget(),
+              Text(
+                this.title,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15,
+                  color: this.titleColor,
+                ),
+              ),
+            ],
+          )
+        : EmptyWidget();
+  }
+
+  Widget _createDefinitionWidget() {
+    return this.definition != null
+        ? Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              this.definitionPrefix != null
+                  ? Icon(
+                      this.definitionPrefix,
+                      size: 14,
+                      color: this.definitionColor,
+                    )
+                  : EmptyWidget(),
+              this.definitionPrefix != null
+                  ? SizedBox(width: 4)
+                  : EmptyWidget(),
+              Text(
+                this.definition,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12,
+                  color: this.definitionColor,
+                ),
+              ),
+            ],
+          )
+        : EmptyWidget();
   }
 
   EdgeInsets _calculateOuterEdgeInsets() {

@@ -8,9 +8,11 @@ abstract class Message {
   DateTime readTime;
   DateTime sentTime;
 
+  final bool isForwarded;
+
   final MessageContentTemplate content;
 
-  Message({this.content});
+  Message({this.content, this.isForwarded = false});
 
   Message setReadTime(DateTime readTime) {
     this.readTime = readTime;

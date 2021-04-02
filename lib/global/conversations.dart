@@ -31,6 +31,7 @@ SingleChannelConversation _c1 = SingleChannelConversation(
           text:
               'Concerned with all aspects of nature on both the macroscopic and submicroscopic levels.',
         ),
+        isForwarded: true,
       )
           .setReceivedTime(DateTime.parse('2021-03-14 00:14:34.612152'))
           .setReadTime(DateTime.parse('2021-03-14 00:24:22.612152')),
@@ -41,6 +42,7 @@ SingleChannelConversation _c1 = SingleChannelConversation(
           text:
               'Its scope of study encompasses not only the behaviour of objects under the action of given forces but also the nature and origin of gravitational, electromagnetic, and nuclear force fields.',
         ),
+        isForwarded: true,
       )
           .setReceivedTime(DateTime.parse('2021-03-14 00:15:34.612152'))
           .setReadTime(DateTime.parse('2021-03-14 00:24:22.612152')),
@@ -82,6 +84,7 @@ SingleChannelConversation _c1 = SingleChannelConversation(
         TextMessage(
             text:
                 'Both experiment, the observation of phenomena under conditions that are controlled as precisely as possible, and theory, the formulation of a unified conceptual framework, play essential and complementary roles in the advancement of physics.'),
+        isForwarded: true,
       )
           .setReceivedTime(DateTime.parse('2021-03-24 11:45:34.612152'))
           .setReadTime(DateTime.parse('2021-03-24 11:46:22.612152')),
@@ -91,12 +94,16 @@ SingleChannelConversation _c1 = SingleChannelConversation(
         TextMessage(
             text:
                 'Physical experiments result in measurements, which are compared with the outcome predicted by theory. A theory that reliably predicts the results of experiments to which it is applicable is said to embody a law of physics. However, a law is always subject to modification, replacement, or restriction to a more limited domain, if a later experiment makes it necessary.'),
+        isForwarded: true,
       )
           .setReceivedTime(DateTime.parse('2021-03-24 11:55:34.612152'))
           .setReadTime(DateTime.parse('2021-03-24 11:56:22.612152')),
     )
     .addMessage(
-      OutgoingMessage(TextMessage(text: 'What is the ultimate aim of physics?'))
+      OutgoingMessage(
+        TextMessage(text: 'What is the ultimate aim of physics?'),
+        isForwarded: true,
+      )
           .setSentTime(DateTime.parse('2021-03-24 23:58:34.612152'))
           .setDeliveredTime(DateTime.parse('2021-03-24 23:59:34.612152'))
           .setReadTime(DateTime.parse('2021-03-25 01:58:34.612152')),
@@ -312,6 +319,7 @@ MultiChannelConversation _c3 = MultiChannelConversation(
         TextMessage(
             text:
                 'Physical optics deals primarily with the nature and properties of light itself.'),
+        isForwarded: true,
       )
           .setReceivedTime(DateTime.parse('2021-03-29 22:26:34.612152'))
           .setReadTime(DateTime.parse('2021-03-30 09:27:22.612152')),
@@ -322,6 +330,7 @@ MultiChannelConversation _c3 = MultiChannelConversation(
         TextMessage(
             text:
                 'Geometrical optics has to do with the principles that govern the image-forming properties of lenses, mirrors, and other devices that make use of light.'),
+        isForwarded: true,
       )
           .setReceivedTime(DateTime.parse('2021-03-29 22:27:34.612152'))
           .setReadTime(DateTime.parse('2021-03-30 09:27:22.612152')),
@@ -362,6 +371,7 @@ MultiChannelConversation _c3 = MultiChannelConversation(
         TextMessage(
             text:
                 'In the 20th century optical methods came to be applied extensively to regions of the electromagnetic radiation spectrum not visible to the eye, such as X-rays, ultraviolet, infrared, and microwave radio waves, and to this extent these regions are now often included in the general field of optics.'),
+        isForwarded: true,
       )
           .setReceivedTime(DateTime.parse('2021-03-29 22:33:34.612152'))
           .setReadTime(DateTime.parse('2021-03-30 09:27:22.612152')),
@@ -380,6 +390,7 @@ MultiChannelConversation _c3 = MultiChannelConversation(
         TextMessage(
             text:
                 'In the present article the image-forming properties of lenses, mirrors, and other devices that make use of light are considered.'),
+        isForwarded: true,
       )
           .setReceivedTime(DateTime.parse('2021-03-29 22:39:34.612152'))
           .setReadTime(DateTime.parse('2021-03-30 09:27:22.612152')),
@@ -390,6 +401,7 @@ MultiChannelConversation _c3 = MultiChannelConversation(
         TextMessage(
             text:
                 'The wave and quantum nature of light, its velocity, wavelength, polarization, diffraction, and interference may be found in light.'),
+        isForwarded: true,
       )
           .setReceivedTime(DateTime.parse('2021-03-29 22:43:34.612152'))
           .setReadTime(DateTime.parse('2021-03-30 09:27:22.612152')),
@@ -485,6 +497,7 @@ MultiChannelConversation _c3 = MultiChannelConversation(
     .addMessage(
       message: OutgoingMessage(
         TextMessage(text: 'What is the advantages of lenses over pinholes.'),
+        isForwarded: true,
       )
           .setSentTime(DateTime.parse('2021-03-30 10:02:34.612152'))
           .setDeliveredTime(DateTime.parse('2021-03-30 10:02:12.612152'))

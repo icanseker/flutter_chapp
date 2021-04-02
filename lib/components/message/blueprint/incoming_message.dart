@@ -5,7 +5,11 @@ import 'package:chapp/components/message/blueprint/message_status.dart';
 class IncomingMessage extends Message {
   DateTime receivedTime;
 
-  IncomingMessage(MessageContentTemplate content) : super(content: content) {
+  IncomingMessage(MessageContentTemplate content, {bool isForwarded = false})
+      : super(
+          content: content,
+          isForwarded: isForwarded,
+        ) {
     this.status = MessageStatus.received;
   }
 
