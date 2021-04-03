@@ -6,7 +6,6 @@ import 'package:chapp/components/message/message_line.dart';
 import 'package:chapp/global/people_list.dart';
 import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
 
 class MultiChannelTimeline extends StatelessWidget {
   final MultiChannelConversation conversation;

@@ -6,6 +6,7 @@ import 'package:chapp/components/message/blueprint/message_template_sign_line_po
 import 'package:chapp/components/message/blueprint/outgoing_message.dart';
 import 'package:chapp/components/message/template/message_template.dart';
 import 'package:chapp/components/swipeable/blueprint/icon_swipe_definition.dart';
+import 'package:chapp/components/swipeable/blueprint/simultaneity_definition.dart';
 import 'package:chapp/components/swipeable/icon_swipe_ability.dart';
 import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,9 @@ class MessageLine extends StatelessWidget {
     this.signLineColor,
   }) : super(key: key);
 
+  static final SwipeSimultaneityController _msgSimultaneityController =
+      SwipeSimultaneityController(maxSimultaneouslySwipedObj: 1);
+
   @override
   Widget build(BuildContext context) {
     double maxWidth = MediaQuery.of(context).size.width * .75;
@@ -46,6 +50,7 @@ class MessageLine extends StatelessWidget {
     if (message is IncomingMessage) {
       IncomingMessage inMessage = message;
       return IconSwipeAbility(
+        simultaneityController: _msgSimultaneityController,
         contextWidth: MediaQuery.of(context).size.width,
         leftSwipe: IconSwipeDefinition(
           iconData: Ionicons.arrow_undo_outline,
@@ -75,6 +80,7 @@ class MessageLine extends StatelessWidget {
     } else if (message is OutgoingMessage) {
       OutgoingMessage outMessage = message;
       return IconSwipeAbility(
+        simultaneityController: _msgSimultaneityController,
         contextWidth: MediaQuery.of(context).size.width,
         leftSwipe: IconSwipeDefinition(
           iconData: Ionicons.arrow_undo_outline,

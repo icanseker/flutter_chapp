@@ -1,10 +1,13 @@
 import 'package:chapp/components/empty_widget.dart';
 import 'package:chapp/components/swipeable/blueprint/icon_swipe_definition.dart';
+import 'package:chapp/components/swipeable/blueprint/simultaneity_definition.dart';
 import 'package:flutter/material.dart';
 
 class IconSwipeAbility extends StatefulWidget {
   final Widget child;
   final double contextWidth;
+  final SwipeSimultaneityController simultaneityController;
+
   final IconSwipeDefinition leftSwipe;
   final IconSwipeDefinition rightSwipe;
 
@@ -15,6 +18,7 @@ class IconSwipeAbility extends StatefulWidget {
     Key key,
     @required this.child,
     @required this.contextWidth,
+    @required this.simultaneityController,
     this.leftSwipe,
     this.rightSwipe,
     this.surfaceDecoration = const BoxDecoration(color: Colors.transparent),
@@ -29,6 +33,8 @@ class IconSwipeAbility extends StatefulWidget {
 
 class _IconSwipeAbilityState extends State<IconSwipeAbility>
     with TickerProviderStateMixin {
+  bool swipeAllowed;
+
   AnimationController swipeAnimationController;
   Animation<Offset> swipeAnimation;
 
@@ -38,11 +44,8 @@ class _IconSwipeAbilityState extends State<IconSwipeAbility>
   double swipeAmountWidthRatio = 0.0;
   double previousSwipeAmountWidthRatio = 0.0;
 
-  AnimationController swipeRightBrightenAnimationController;
-  Animation<double> swipeRightBrightenAnimation;
-
-  AnimationController swipeLeftBrightenAnimationController;
-  Animation<double> swipeLeftBrightenAnimation;
+  double rightSwipeOpacity;
+  double leftSwipeOpacity;
 
   double swipeAmountCoeff = 1.0;
 
@@ -62,25 +65,8 @@ class _IconSwipeAbilityState extends State<IconSwipeAbility>
             .animate(swipeAnimationController);
     swipeAnimationController.animateTo(0.0);
 
-    if (widget.rightSwipe.brightenEffect) {
-      swipeRightBrightenAnimationController = AnimationController(
-        vsync: this,
-        duration: Duration(milliseconds: 200),
-      );
-      swipeRightBrightenAnimation = Tween<double>(begin: 0.0, end: 1.0)
-          .animate(swipeRightBrightenAnimationController);
-      swipeRightBrightenAnimationController.animateTo(0.0);
-    }
-
-    if (widget.leftSwipe.brightenEffect) {
-      swipeLeftBrightenAnimationController = AnimationController(
-        vsync: this,
-        duration: Duration(milliseconds: 200),
-      );
-      swipeLeftBrightenAnimation = Tween<double>(begin: 0.0, end: 1.0)
-          .animate(swipeLeftBrightenAnimationController);
-      swipeLeftBrightenAnimationController.animateTo(0.0);
-    }
+    this.rightSwipeOpacity = widget.rightSwipe.brightenEffect ? 0.0 : 1.0;
+    this.leftSwipeOpacity = widget.leftSwipe.brightenEffect ? 0.0 : 1.0;
   }
 
   @override
@@ -90,35 +76,38 @@ class _IconSwipeAbilityState extends State<IconSwipeAbility>
   }
 
   void onSwiping(DragUpdateDetails details) {
-    this.achievedSwipeDirection = 0.0;
+    if (this.swipeAllowed) {
+      this.achievedSwipeDirection = 0.0;
 
-    swipeAmount += details.primaryDelta;
-    this.swipeAmountWidthRatio = (swipeAmount / widget.contextWidth);
+      swipeAmount += details.primaryDelta;
+      this.swipeAmountWidthRatio = (swipeAmount / widget.contextWidth);
 
-    if (previousSwipeAmountWidthRatio.sign != this.swipeAmountWidthRatio.sign) {
-      setState(() {
-        swipeAnimation = Tween<Offset>(
-                begin: Offset(0.0, 0.0), end: Offset(swipeAmount.sign, 0.0))
-            .animate(swipeAnimationController);
-      });
+      if (previousSwipeAmountWidthRatio.sign !=
+          this.swipeAmountWidthRatio.sign) {
+        setState(() {
+          swipeAnimation = Tween<Offset>(
+                  begin: Offset(0.0, 0.0), end: Offset(swipeAmount.sign, 0.0))
+              .animate(swipeAnimationController);
+        });
+      }
+
+      swipeAnimationController.value = swipeAmountWidthRatio.abs();
+      double normalizedSwipeAmountRatio =
+          swipeAmountWidthRatio * this.swipeAmountCoeff;
+
+      if (swipeAmount.sign > 0)
+        swipingToRight(normalizedSwipeAmountRatio);
+      else
+        swipingToLeft(normalizedSwipeAmountRatio);
+
+      previousSwipeAmountWidthRatio = swipeAmountWidthRatio;
     }
-
-    swipeAnimationController.value = swipeAmountWidthRatio.abs();
-    double normalizedSwipeAmountRatio =
-        swipeAmountWidthRatio * this.swipeAmountCoeff;
-
-    if (swipeAmount.sign > 0)
-      swipingToRight(normalizedSwipeAmountRatio);
-    else
-      swipingToLeft(normalizedSwipeAmountRatio);
-
-    previousSwipeAmountWidthRatio = swipeAmountWidthRatio;
   }
 
   void swipingToRight(double normalizedSwipeAmountRatio) {
     if (widget.rightSwipe.brightenEffect)
       setState(() {
-        swipeRightBrightenAnimationController.value =
+        this.rightSwipeOpacity =
             normalizedSwipeAmountRatio / widget.rightSwipe.swipeThreshold;
       });
 
@@ -133,7 +122,7 @@ class _IconSwipeAbilityState extends State<IconSwipeAbility>
   void swipingToLeft(double normalizedSwipeAmountRatio) {
     if (widget.leftSwipe.brightenEffect)
       setState(() {
-        swipeLeftBrightenAnimationController.value =
+        this.leftSwipeOpacity =
             normalizedSwipeAmountRatio.abs() / widget.leftSwipe.swipeThreshold;
       });
 
@@ -146,38 +135,41 @@ class _IconSwipeAbilityState extends State<IconSwipeAbility>
   }
 
   void onSwipeEnded(DragEndDetails endDetails) {
-    swipeAnimationController.animateTo(
-      0.0,
-      duration: Duration(milliseconds: 50),
-    );
+    if (this.swipeAllowed) {
+      widget.simultaneityController.swipeFinished();
 
-    if (this.swipeRightBrightenAnimationController != null) {
-      setState(() {
-        swipeRightBrightenAnimationController.value = 0.0;
-      });
+      swipeAnimationController.animateTo(
+        0.0,
+        duration: Duration(milliseconds: 50),
+      );
+
+      swipeAmount = 0.0;
+      swipeAmountWidthRatio = 0.0;
+      previousSwipeAmountWidthRatio = 0.0;
+
+      if (widget.rightSwipe.brightenEffect || widget.leftSwipe.brightenEffect)
+        setState(() {
+          if (widget.rightSwipe.brightenEffect) this.rightSwipeOpacity = 0.0;
+          if (widget.leftSwipe.brightenEffect) this.leftSwipeOpacity = 0.0;
+        });
+
+      if (this.achievedSwipeDirection == 1.0) {
+        print('right swipe triggered');
+      }
+      if (this.achievedSwipeDirection == -1.0) {
+        print('left swipe triggered');
+      }
     }
 
-    if (this.swipeLeftBrightenAnimationController != null) {
-      setState(() {
-        swipeLeftBrightenAnimationController.value = 0.0;
-      });
-    }
-
-    swipeAmount = 0.0;
-    swipeAmountWidthRatio = 0.0;
-    previousSwipeAmountWidthRatio = 0.0;
-
-    if (this.achievedSwipeDirection == 1.0) {
-      print('right swipe triggered');
-    }
-    if (this.achievedSwipeDirection == -1.0) {
-      print('left swipe triggered');
-    }
+    this.swipeAllowed = null;
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onHorizontalDragStart: (_) {
+        this.swipeAllowed = widget.simultaneityController.isSwipeAllowed;
+      },
       onHorizontalDragUpdate: onSwiping,
       onHorizontalDragEnd: onSwipeEnded,
       behavior: HitTestBehavior.opaque,
@@ -192,9 +184,8 @@ class _IconSwipeAbilityState extends State<IconSwipeAbility>
                 ? Align(
                     alignment: Alignment.centerLeft,
                     child: Opacity(
-                      opacity: widget.rightSwipe.brightenEffect
-                          ? swipeRightBrightenAnimation.value
-                          : 1.0,
+                      opacity:
+                          rightSwipeOpacity <= 1.0 ? rightSwipeOpacity : 1.0,
                       child: Icon(widget.rightSwipe.iconData),
                     ),
                   )
@@ -203,9 +194,7 @@ class _IconSwipeAbilityState extends State<IconSwipeAbility>
                 ? Align(
                     alignment: Alignment.centerRight,
                     child: Opacity(
-                      opacity: widget.leftSwipe.brightenEffect
-                          ? swipeLeftBrightenAnimation.value
-                          : 1.0,
+                      opacity: leftSwipeOpacity <= 1.0 ? leftSwipeOpacity : 1.0,
                       child: Icon(widget.leftSwipe.iconData),
                     ),
                   )

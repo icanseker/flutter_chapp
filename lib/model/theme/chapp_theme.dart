@@ -16,4 +16,6 @@ class ChappTheme{
 
   static bool autoSizedConversationCardTitleText = true;
   static bool autoSizedConversationChatBarTitleText = false;
+
+  static int expandableContentTextSizeLimit = 360;
 }
