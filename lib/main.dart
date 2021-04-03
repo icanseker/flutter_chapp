@@ -15,7 +15,7 @@ class Chapp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.redAccent,
         accentColor: Colors.red,
-        fontFamily: 'Barlow',
+        fontFamily: 'Sarabun',
       ),
       home: new ConversationsScreen(),
       routes: {

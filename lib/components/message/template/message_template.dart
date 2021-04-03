@@ -95,19 +95,21 @@ class MessageTemplate extends StatelessWidget {
   Widget _createTitleWidget() {
     return this.title != null
         ? Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               this.titlePrefix != null
                   ? Icon(this.titlePrefix, size: 16, color: this.titleColor)
                   : EmptyWidget(),
               this.titlePrefix != null ? SizedBox(width: 4) : EmptyWidget(),
-              Text(
-                this.title,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 15,
-                  color: this.titleColor,
+              Flexible(
+                child: Text(
+                  this.title,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15,
+                    color: this.titleColor,
+                  ),
                 ),
               ),
             ],
@@ -118,7 +120,7 @@ class MessageTemplate extends StatelessWidget {
   Widget _createDefinitionWidget() {
     return this.definition != null
         ? Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               this.definitionPrefix != null
                   ? Icon(
@@ -130,13 +132,15 @@ class MessageTemplate extends StatelessWidget {
               this.definitionPrefix != null
                   ? SizedBox(width: 4)
                   : EmptyWidget(),
-              Text(
-                this.definition,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 12,
-                  color: this.definitionColor,
+              Flexible(
+                child: Text(
+                  this.definition,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                    color: this.definitionColor,
+                  ),
                 ),
               ),
             ],

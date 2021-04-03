@@ -3,10 +3,13 @@ import 'package:chapp/components/conversation/blueprint/single_channel_conversat
 import 'package:chapp/components/conversation/timeline/multi_channel_timeline.dart';
 import 'package:chapp/components/conversation/timeline/single_channel_timeline.dart';
 import 'package:chapp/components/divider/divider.dart';
+import 'package:chapp/components/swipeable/blueprint/simultaneity_definition.dart';
 import 'package:flutter/material.dart';
 
 class ConversationTimeline extends StatelessWidget {
   final Conversation conversation;
+  static final SwipeSimultaneityController swipeSimultaneityController =
+      SwipeSimultaneityController(maxSimultaneouslySwipedObj: 1);
 
   const ConversationTimeline({this.conversation});
 

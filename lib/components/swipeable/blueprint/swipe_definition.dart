@@ -6,7 +6,7 @@ abstract class SwipeDefinition {
 
   SwipeDefinition({
     this.swipeCallback,
-    this.swipeThreshold = 36.0,
+    this.swipeThreshold = 25.0,
   }) {
     this.swipeThreshold /= 100.0;
   }

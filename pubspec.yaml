@@ -47,14 +47,95 @@ flutter:
   uses-material-design: true
 
   fonts:
-    - family: Barlow
+    - family: Prompt
       fonts:
-        - asset: assets/fonts/Barlow/Barlow-Regular.ttf
+        - asset: assets/fonts/Prompt/Prompt-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Prompt/Prompt-ThinItalic.ttf
+          weight: 100
+          style: italic
+        - asset: assets/fonts/Prompt/Prompt-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Prompt/Prompt-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+        - asset: assets/fonts/Prompt/Prompt-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Prompt/Prompt-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Prompt/Prompt-Regular.ttf
           weight: 400
-        - asset: assets/fonts/Barlow/Barlow-Medium.ttf
+        - asset: assets/fonts/Prompt/Prompt-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Prompt/Prompt-Medium.ttf
           weight: 500
-        - asset: assets/fonts/Barlow/Barlow-SemiBold.ttf
+        - asset: assets/fonts/Prompt/Prompt-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Prompt/Prompt-SemiBold.ttf
           weight: 600
+        - asset: assets/fonts/Prompt/Prompt-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/Prompt/Prompt-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Prompt/Prompt-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Prompt/Prompt-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Prompt/Prompt-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+        - asset: assets/fonts/Prompt/Prompt-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Prompt/Prompt-BlackItalic.ttf
+          weight: 900
+          style: italic
+    - family: Sarabun
+      fonts:
+        - asset: assets/fonts/Sarabun/Sarabun-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Sarabun/Sarabun-ThinItalic.ttf
+          weight: 100
+          style: italic
+        - asset: assets/fonts/Sarabun/Sarabun-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Sarabun/Sarabun-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+        - asset: assets/fonts/Sarabun/Sarabun-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Sarabun/Sarabun-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Sarabun/Sarabun-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Sarabun/Sarabun-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Sarabun/Sarabun-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Sarabun/Sarabun-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Sarabun/Sarabun-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Sarabun/Sarabun-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/Sarabun/Sarabun-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Sarabun/Sarabun-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Sarabun/Sarabun-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Sarabun/Sarabun-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
     - family: Emotion
       fonts:
         - asset: assets/custom-icons/Emotion.ttf

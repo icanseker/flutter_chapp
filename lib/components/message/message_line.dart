@@ -1,3 +1,4 @@
+import 'package:chapp/components/conversation/timeline/timeline.dart';
 import 'package:chapp/components/empty_widget.dart';
 import 'package:chapp/components/message/blueprint/incoming_message.dart';
 import 'package:chapp/components/message/blueprint/message.dart';
@@ -6,7 +7,6 @@ import 'package:chapp/components/message/blueprint/message_template_sign_line_po
 import 'package:chapp/components/message/blueprint/outgoing_message.dart';
 import 'package:chapp/components/message/template/message_template.dart';
 import 'package:chapp/components/swipeable/blueprint/icon_swipe_definition.dart';
-import 'package:chapp/components/swipeable/blueprint/simultaneity_definition.dart';
 import 'package:chapp/components/swipeable/icon_swipe_ability.dart';
 import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:flutter/material.dart';
@@ -40,9 +40,6 @@ class MessageLine extends StatelessWidget {
     this.signLineColor,
   }) : super(key: key);
 
-  static final SwipeSimultaneityController _msgSimultaneityController =
-      SwipeSimultaneityController(maxSimultaneouslySwipedObj: 1);
-
   @override
   Widget build(BuildContext context) {
     double maxWidth = MediaQuery.of(context).size.width * .75;
@@ -50,15 +47,18 @@ class MessageLine extends StatelessWidget {
     if (message is IncomingMessage) {
       IncomingMessage inMessage = message;
       return IconSwipeAbility(
-        simultaneityController: _msgSimultaneityController,
+        simultaneityController:
+            ConversationTimeline.swipeSimultaneityController,
         contextWidth: MediaQuery.of(context).size.width,
         leftSwipe: IconSwipeDefinition(
           iconData: Ionicons.arrow_undo_outline,
           brightenEffect: true,
+          iconDefinition: 'Forward',
         ),
         rightSwipe: IconSwipeDefinition(
           iconData: Ionicons.arrow_redo_outline,
           brightenEffect: true,
+          iconDefinition: 'Reply',
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -80,15 +80,18 @@ class MessageLine extends StatelessWidget {
     } else if (message is OutgoingMessage) {
       OutgoingMessage outMessage = message;
       return IconSwipeAbility(
-        simultaneityController: _msgSimultaneityController,
+        simultaneityController:
+            ConversationTimeline.swipeSimultaneityController,
         contextWidth: MediaQuery.of(context).size.width,
         leftSwipe: IconSwipeDefinition(
           iconData: Ionicons.arrow_undo_outline,
           brightenEffect: true,
+          iconDefinition: 'Forward',
         ),
         rightSwipe: IconSwipeDefinition(
           iconData: Ionicons.arrow_redo_outline,
           brightenEffect: true,
+          iconDefinition: 'Reply',
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -131,24 +134,22 @@ class MessageLine extends StatelessWidget {
 
   Widget _getCustomMessageTemplate(double maxWidth, Color backgroundColor,
       MessageTemplateSignLinePosition signLinePosition) {
-    return Flexible(
-      child: MessageTemplate(
-        messageContent: message.content,
-        maxWidth: maxWidth,
-        backgroundColor: backgroundColor,
-        title: this.title != null ? this.title : null,
-        titlePrefix: this.titlePrefix != null ? this.titlePrefix : null,
-        titleColor: this.titleColor != null ? this.titleColor : null,
-        definition: message.isForwarded ? 'Forwarded' : null,
-        definitionColor: Colors.black38,
-        definitionPrefix: Ionicons.arrow_redo_outline,
-        signLineColor: this.signLineColor != null ? this.signLineColor : null,
-        signLinePosition: signLinePosition,
-        activateTopRightBorderRadius: activateTopRightBorderRadius,
-        activateTopLeftBorderRadius: activateTopLeftBorderRadius,
-        activateBottomRightBorderRadius: activateBottomRightBorderRadius,
-        activateBottomLeftBorderRadius: activateBottomLeftBorderRadius,
-      ),
+    return MessageTemplate(
+      messageContent: message.content,
+      maxWidth: maxWidth,
+      backgroundColor: backgroundColor,
+      title: this.title != null ? this.title : null,
+      titlePrefix: this.titlePrefix != null ? this.titlePrefix : null,
+      titleColor: this.titleColor != null ? this.titleColor : null,
+      definition: message.isForwarded ? 'Forwarded' : null,
+      definitionColor: Colors.black38,
+      definitionPrefix: Ionicons.arrow_redo_outline,
+      signLineColor: this.signLineColor != null ? this.signLineColor : null,
+      signLinePosition: signLinePosition,
+      activateTopRightBorderRadius: activateTopRightBorderRadius,
+      activateTopLeftBorderRadius: activateTopLeftBorderRadius,
+      activateBottomRightBorderRadius: activateBottomRightBorderRadius,
+      activateBottomLeftBorderRadius: activateBottomLeftBorderRadius,
     );
   }
 }

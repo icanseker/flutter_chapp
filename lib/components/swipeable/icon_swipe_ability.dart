@@ -91,7 +91,9 @@ class _IconSwipeAbilityState extends State<IconSwipeAbility>
         });
       }
 
-      swipeAnimationController.value = swipeAmountWidthRatio.abs();
+      swipeAnimationController.value = swipeAmountWidthRatio.abs() < 0.50
+          ? swipeAmountWidthRatio.abs()
+          : 0.50;
       double normalizedSwipeAmountRatio =
           swipeAmountWidthRatio * this.swipeAmountCoeff;
 
@@ -186,24 +188,72 @@ class _IconSwipeAbilityState extends State<IconSwipeAbility>
                     child: Opacity(
                       opacity:
                           rightSwipeOpacity <= 1.0 ? rightSwipeOpacity : 1.0,
-                      child: Icon(widget.rightSwipe.iconData),
+                      child: Container(
+                        width: widget.contextWidth / 2 - 6,
+                        child: Row(
+                          children: [
+                            Icon(widget.rightSwipe.iconData),
+                            widget.rightSwipe.iconDefinition != null
+                                ? SizedBox(width: 4)
+                                : EmptyWidget(),
+                            widget.rightSwipe.iconDefinition != null
+                                ? Expanded(
+                                    child: Opacity(
+                                      opacity:
+                                          rightSwipeOpacity >= 1.0 ? 1.0 : 0.0,
+                                      child: Text(
+                                        widget.rightSwipe.iconDefinition,
+                                        style: TextStyle(color: Colors.black54),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  )
+                                : EmptyWidget(),
+                          ],
+                        ),
+                      ),
                     ),
                   )
                 : EmptyWidget(),
+            SizedBox(width: 12),
             widget.leftSwipe != null
                 ? Align(
                     alignment: Alignment.centerRight,
                     child: Opacity(
                       opacity: leftSwipeOpacity <= 1.0 ? leftSwipeOpacity : 1.0,
-                      child: Icon(widget.leftSwipe.iconData),
+                      child: Container(
+                        width: widget.contextWidth / 2 - 6,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            widget.leftSwipe.iconDefinition != null
+                                ? Expanded(
+                                    child: Opacity(
+                                      opacity: this.leftSwipeOpacity >= 1.0
+                                          ? 1.0
+                                          : 0.0,
+                                      child: Text(
+                                        widget.leftSwipe.iconDefinition,
+                                        style: TextStyle(color: Colors.black54),
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.end,
+                                      ),
+                                    ),
+                                  )
+                                : EmptyWidget(),
+                            widget.leftSwipe.iconDefinition != null
+                                ? SizedBox(width: 4)
+                                : EmptyWidget(),
+                            Icon(widget.leftSwipe.iconData),
+                          ],
+                        ),
+                      ),
                     ),
                   )
                 : EmptyWidget(),
             SlideTransition(
               position: swipeAnimation,
-              child: Container(
-                child: widget.child,
-              ),
+              child: widget.child,
             ),
           ],
         ),
