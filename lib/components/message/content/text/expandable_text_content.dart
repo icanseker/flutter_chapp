@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class ExpandableTextContent extends StatefulWidget {
   final String text;
-  final double fontSize;
+  final TextStyle textStyle;
   final int maxLines;
   final bool bothWay;
   final String expandText;
@@ -12,7 +12,7 @@ class ExpandableTextContent extends StatefulWidget {
   const ExpandableTextContent({
     Key key,
     @required this.text,
-    this.fontSize = 16,
+    @required this.textStyle,
     this.maxLines = 5,
     this.bothWay = false,
     this.expandText = 'Read more',
@@ -30,27 +30,30 @@ class _ExpandableTextContentState extends State<ExpandableTextContent> {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle switchBtnTextStyle =
+        TextStyle(fontSize: widget.textStyle.fontSize - 1.5);
+
     return Column(
       children: [
         Text(
           widget.text,
-          style: TextStyle(
-            fontSize: widget.fontSize,
-          ),
+          style: widget.textStyle,
           maxLines: _isExpanded ? null : widget.maxLines,
           overflow: _isExpanded ? null : TextOverflow.ellipsis,
         ),
         widget.bothWay
             ? TextButton(
                 onPressed: () => _switchState(),
-                child:
-                    Text(_isExpanded ? widget.collapseText : widget.expandText),
+                child: Text(
+                  _isExpanded ? widget.collapseText : widget.expandText,
+                  style: switchBtnTextStyle,
+                ),
               )
             : _isExpanded
                 ? EmptyWidget()
                 : TextButton(
                     onPressed: () => _switchState(),
-                    child: Text(widget.expandText),
+                    child: Text(widget.expandText, style: switchBtnTextStyle),
                   ),
       ],
     );

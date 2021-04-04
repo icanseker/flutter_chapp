@@ -65,6 +65,7 @@ class MessageLine extends StatelessWidget {
           children: [
             _getCustomMessageTemplate(
               maxWidth,
+              ChappTheme.incomingMessageTextStyle,
               ChappTheme.incomingMessageTemplateBackground,
               MessageTemplateSignLinePosition.left,
             ),
@@ -72,6 +73,7 @@ class MessageLine extends StatelessWidget {
               padding: EdgeInsets.all(4),
               child: Text(
                 DateFormat.Hm().format(inMessage.receivedTime),
+                style: ChappTheme.incomingMessageTimeStampTextStyle,
               ),
             ),
           ],
@@ -106,10 +108,11 @@ class MessageLine extends StatelessWidget {
                     DateFormat.Hm().format(outMessage.sentTime == null
                         ? outMessage.createdTime
                         : outMessage.sentTime),
+                    style: ChappTheme.outgoingMessageTimeStampTextStyle,
                   ),
                   Icon(
                     outMessage.status.icon,
-                    size: 14,
+                    size: ChappTheme.outgoingMessageLineIconSize,
                     color: outMessage.status.iconColor,
                   )
                 ],
@@ -117,6 +120,7 @@ class MessageLine extends StatelessWidget {
             ),
             _getCustomMessageTemplate(
               maxWidth,
+              ChappTheme.outgoingMessageTextStyle,
               message.status == MessageStatus.send_error
                   ? ChappTheme.sendErrorOccurredMessageTemplateBackground
                   : message.status == MessageStatus.waiting_for_connection
@@ -132,24 +136,27 @@ class MessageLine extends StatelessWidget {
     return EmptyWidget();
   }
 
-  Widget _getCustomMessageTemplate(double maxWidth, Color backgroundColor,
-      MessageTemplateSignLinePosition signLinePosition) {
-    return MessageTemplate(
-      messageContent: message.content,
-      maxWidth: maxWidth,
-      backgroundColor: backgroundColor,
-      title: this.title != null ? this.title : null,
-      titlePrefix: this.titlePrefix != null ? this.titlePrefix : null,
-      titleColor: this.titleColor != null ? this.titleColor : null,
-      definition: message.isForwarded ? 'Forwarded' : null,
-      definitionColor: Colors.black38,
-      definitionPrefix: Ionicons.arrow_redo_outline,
-      signLineColor: this.signLineColor != null ? this.signLineColor : null,
-      signLinePosition: signLinePosition,
-      activateTopRightBorderRadius: activateTopRightBorderRadius,
-      activateTopLeftBorderRadius: activateTopLeftBorderRadius,
-      activateBottomRightBorderRadius: activateBottomRightBorderRadius,
-      activateBottomLeftBorderRadius: activateBottomLeftBorderRadius,
+  Widget _getCustomMessageTemplate(double maxWidth, TextStyle messageTextStyle,
+      Color backgroundColor, MessageTemplateSignLinePosition signLinePosition) {
+    return Flexible(
+      child: MessageTemplate(
+        messageContent: message.content,
+        messageTextStyle: messageTextStyle,
+        maxWidth: maxWidth,
+        backgroundColor: backgroundColor,
+        title: this.title != null ? this.title : null,
+        titlePrefix: this.titlePrefix != null ? this.titlePrefix : null,
+        titleColor: this.titleColor != null ? this.titleColor : null,
+        definition: message.isForwarded ? 'Forwarded' : null,
+        definitionColor: Colors.black38,
+        definitionPrefix: Ionicons.arrow_redo_outline,
+        signLineColor: this.signLineColor != null ? this.signLineColor : null,
+        signLinePosition: signLinePosition,
+        activateTopRightBorderRadius: activateTopRightBorderRadius,
+        activateTopLeftBorderRadius: activateTopLeftBorderRadius,
+        activateBottomRightBorderRadius: activateBottomRightBorderRadius,
+        activateBottomLeftBorderRadius: activateBottomLeftBorderRadius,
+      ),
     );
   }
 }

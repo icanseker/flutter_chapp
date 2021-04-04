@@ -1,3 +1,4 @@
+import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:chapp/screen/chat.dart';
 import 'package:chapp/screen/conversations.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +14,8 @@ class Chapp extends StatelessWidget {
       title: 'Chapp',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.redAccent,
-        accentColor: Colors.red,
-        fontFamily: 'Sarabun',
+        primaryColor: ChappTheme.themePrimaryColor,
+        fontFamily: ChappTheme.fontFamily,
       ),
       home: new ConversationsScreen(),
       routes: {

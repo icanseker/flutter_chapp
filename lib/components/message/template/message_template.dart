@@ -3,13 +3,13 @@ import 'package:chapp/components/message/blueprint/message_content_template.dart
 import 'package:chapp/components/message/blueprint/message_template_sign_line_position.dart';
 import 'package:chapp/components/message/content/dynamic_message_content.dart';
 import 'package:chapp/helper/color.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MessageTemplate extends StatelessWidget {
-  final double radiusAmount = 12.00;
+  final double radiusAmount = 12.0;
 
   final MessageContentTemplate messageContent;
+  final TextStyle messageTextStyle;
 
   final bool activateTopLeftBorderRadius;
   final bool activateTopRightBorderRadius;
@@ -33,6 +33,7 @@ class MessageTemplate extends StatelessWidget {
   const MessageTemplate({
     Key key,
     @required this.messageContent,
+    @required this.messageTextStyle,
     this.activateTopLeftBorderRadius = false,
     this.activateTopRightBorderRadius = false,
     this.activateBottomLeftBorderRadius = false,
@@ -85,7 +86,10 @@ class MessageTemplate extends StatelessWidget {
             this.title != null ? SizedBox(height: 6) : EmptyWidget(),
             _createDefinitionWidget(),
             this.definition != null ? SizedBox(height: 2) : EmptyWidget(),
-            DynamicMessageContent(messageContent: messageContent),
+            DynamicMessageContent(
+              messageContent: messageContent,
+              messageTextStyle: this.messageTextStyle,
+            ),
           ],
         ),
       ),
@@ -98,7 +102,11 @@ class MessageTemplate extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               this.titlePrefix != null
-                  ? Icon(this.titlePrefix, size: 16, color: this.titleColor)
+                  ? Icon(
+                      this.titlePrefix,
+                      size: this.messageTextStyle.fontSize,
+                      color: this.titleColor,
+                    )
                   : EmptyWidget(),
               this.titlePrefix != null ? SizedBox(width: 4) : EmptyWidget(),
               Flexible(
@@ -107,7 +115,7 @@ class MessageTemplate extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
-                    fontSize: 15,
+                    fontSize: this.messageTextStyle.fontSize - 2.0,
                     color: this.titleColor,
                   ),
                 ),
@@ -125,7 +133,7 @@ class MessageTemplate extends StatelessWidget {
               this.definitionPrefix != null
                   ? Icon(
                       this.definitionPrefix,
-                      size: 14,
+                      size: this.messageTextStyle.fontSize - 2.0,
                       color: this.definitionColor,
                     )
                   : EmptyWidget(),
@@ -138,7 +146,7 @@ class MessageTemplate extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontSize: 12,
+                    fontSize: this.messageTextStyle.fontSize - 4.0,
                     color: this.definitionColor,
                   ),
                 ),

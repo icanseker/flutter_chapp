@@ -18,7 +18,7 @@ class ConversationsScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Ionicons.add_outline),
-        backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Theme.of(context).primaryColor,
         elevation: 3, // shadow
         onPressed: () {},
       ),

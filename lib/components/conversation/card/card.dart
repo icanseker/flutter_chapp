@@ -28,16 +28,17 @@ class ConversationCard extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _ConversationCardState(conversationKey);
+    return _ConversationCardState();
   }
 }
 
 class _ConversationCardState extends State<ConversationCard> {
-  final String conversationKey;
   Conversation conversation;
 
-  _ConversationCardState(this.conversationKey) {
-    conversation = globalConversationList[this.conversationKey];
+  @override
+  void initState() {
+    super.initState();
+    conversation = globalConversationList[widget.conversationKey];
   }
 
   @override
@@ -48,11 +49,11 @@ class _ConversationCardState extends State<ConversationCard> {
           context,
           ChatScreen.routeName,
           arguments: {
-            'conversation-key': conversationKey,
+            'conversation-key': widget.conversationKey,
           },
         );
         setState(() {
-          conversation = globalConversationList[conversationKey];
+          conversation = globalConversationList[widget.conversationKey];
         });
       },
       child: Row(
@@ -60,7 +61,9 @@ class _ConversationCardState extends State<ConversationCard> {
         children: [
           Container(
             child: AvatarWidget(
-              avatarShape: CircleShapedAvatar(radius: 30),
+              avatarShape: CircleShapedAvatar(
+                radius: ChappTheme.conversationCardAvatarRadius,
+              ),
               avatarImage: conversation.avatar,
               borderSize: 1,
               borderColor: Colors.black,
@@ -72,7 +75,7 @@ class _ConversationCardState extends State<ConversationCard> {
                       : AvatarBadge(
                           position: Alignment.topRight,
                           color: PersonStatus.online.ideColor,
-                          size: 12,
+                          size: ChappTheme.conversationCardAvatarBadgeSize,
                           borderColor: Colors.white,
                           borderSize: 1,
                         ),
@@ -110,10 +113,8 @@ class _ConversationCardState extends State<ConversationCard> {
               ),
             ),
           ),
-          Container(
-            width: 75,
-            child: _lastActivityTimeWidget(),
-          ),
+          SizedBox(width: 14),
+          _lastActivityTimeWidget(),
         ],
       ),
     );
@@ -126,23 +127,26 @@ class _ConversationCardState extends State<ConversationCard> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         titlePrefix != null
-            ? Icon(titlePrefix, color: Colors.black54)
+            ? Icon(
+                titlePrefix,
+                color: Colors.black54,
+                size: ChappTheme.conversationCardTitleIconSize,
+              )
             : EmptyWidget(),
         Flexible(child: _titleTextWidget(title)),
         unReadCount > 0
             ? Container(
                 margin: EdgeInsets.only(left: 4),
-                height: 17,
-                width: 17,
+                height: ChappTheme.conversationCardUnreadCountWrapperSize,
+                width: ChappTheme.conversationCardUnreadCountWrapperSize,
                 alignment: Alignment.center,
-                decoration:
-                    BoxDecoration(shape: BoxShape.circle, color: Colors.cyan),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Theme.of(context).primaryColor,
+                ),
                 child: Text(
                   unReadCount > 99 ? '99' : unReadCount.toString(),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                  ),
+                  style: ChappTheme.conversationCardUnreadCountTextStyle,
                 ),
               )
             : EmptyWidget(),
@@ -154,7 +158,7 @@ class _ConversationCardState extends State<ConversationCard> {
     Text textWidget = Text(
       title,
       overflow: TextOverflow.ellipsis,
-      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+      style: ChappTheme.conversationCardTitleTextStyle,
     );
 
     return ChappTheme.autoSizedConversationCardTitleText
@@ -164,6 +168,8 @@ class _ConversationCardState extends State<ConversationCard> {
 
   Widget _lastActivityTimeWidget() {
     DateTimeStamp lastActivityTimeStamp = conversation.lastActivityTimeStamp;
+    TextStyle lastActivityTimeStampTextStyle =
+        ChappTheme.conversationCardLastActivityTextStyle;
 
     if (lastActivityTimeStamp != null) {
       List<Widget> reWidgets = [];
@@ -171,18 +177,38 @@ class _ConversationCardState extends State<ConversationCard> {
       switch (lastActivityTimeStamp.category) {
         case DateTimeStampCategory.just_now:
           {
-            reWidgets.add(Text(lastActivityTimeStamp.category.ide));
+            reWidgets.add(
+              Text(
+                lastActivityTimeStamp.category.ide,
+                style: lastActivityTimeStampTextStyle,
+              ),
+            );
             break;
           }
         case DateTimeStampCategory.today:
           {
-            reWidgets.add(Text(lastActivityTimeStamp.time));
+            reWidgets.add(
+              Text(
+                lastActivityTimeStamp.time,
+                style: lastActivityTimeStampTextStyle,
+              ),
+            );
             break;
           }
         case DateTimeStampCategory.yesterday:
           {
-            reWidgets.add(Text(lastActivityTimeStamp.category.ide));
-            reWidgets.add(Text(lastActivityTimeStamp.time));
+            reWidgets.add(
+              Text(
+                lastActivityTimeStamp.category.ide,
+                style: lastActivityTimeStampTextStyle,
+              ),
+            );
+            reWidgets.add(
+              Text(
+                lastActivityTimeStamp.time,
+                style: lastActivityTimeStampTextStyle,
+              ),
+            );
             break;
           }
         case DateTimeStampCategory.two_days_before:
@@ -190,14 +216,34 @@ class _ConversationCardState extends State<ConversationCard> {
         case DateTimeStampCategory.four_days_before:
         case DateTimeStampCategory.five_days_before:
           {
-            reWidgets.add(Text(lastActivityTimeStamp.day));
-            reWidgets.add(Text(lastActivityTimeStamp.time));
+            reWidgets.add(
+              Text(
+                lastActivityTimeStamp.day,
+                style: lastActivityTimeStampTextStyle,
+              ),
+            );
+            reWidgets.add(
+              Text(
+                lastActivityTimeStamp.time,
+                style: lastActivityTimeStampTextStyle,
+              ),
+            );
             break;
           }
         default:
           {
-            reWidgets.add(Text(lastActivityTimeStamp.date));
-            reWidgets.add(Text(lastActivityTimeStamp.time));
+            reWidgets.add(
+              Text(
+                lastActivityTimeStamp.date,
+                style: lastActivityTimeStampTextStyle,
+              ),
+            );
+            reWidgets.add(
+              Text(
+                lastActivityTimeStamp.time,
+                style: lastActivityTimeStampTextStyle,
+              ),
+            );
             break;
           }
       }
@@ -222,10 +268,7 @@ class _ConversationCardState extends State<ConversationCard> {
             child: Text(
               (lastMessage.content as TextMessage).text,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 16,
-              ),
+              style: ChappTheme.conversationCardLastMessageTextStyle,
             ),
           ),
         ],
@@ -237,10 +280,10 @@ class _ConversationCardState extends State<ConversationCard> {
     Widget lastMessageIconIde = Container();
     if (lastMessage is OutgoingMessage) {
       lastMessageIconIde = Container(
-        width: 16,
+        margin: EdgeInsets.only(right: 2),
         child: Icon(
           lastMessage.status.icon,
-          size: 16,
+          size: ChappTheme.conversationCardLastMessageIconSize,
           color: lastMessage.status.iconColor,
         ),
       );
@@ -264,8 +307,8 @@ class _ConversationCardState extends State<ConversationCard> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(child: lastMessageHolder),
             lastMessageIconIde,
+            Expanded(child: lastMessageHolder),
           ],
         )
       ],

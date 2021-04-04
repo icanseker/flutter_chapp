@@ -4,6 +4,7 @@ import 'package:chapp/components/conversation/timeline/multi_channel_timeline.da
 import 'package:chapp/components/conversation/timeline/single_channel_timeline.dart';
 import 'package:chapp/components/divider/divider.dart';
 import 'package:chapp/components/swipeable/blueprint/simultaneity_definition.dart';
+import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:flutter/material.dart';
 
 class ConversationTimeline extends StatelessWidget {
@@ -40,11 +41,7 @@ class ConversationTimeline extends StatelessWidget {
       labelAlignment: Alignment.center,
       label: label,
       labelMarginAmount: 12.0,
-      labelTextStyle: TextStyle(
-        fontSize: 16,
-        color: Colors.grey,
-        fontWeight: FontWeight.w400,
-      ),
+      labelTextStyle: ChappTheme.timelineDividerTextStyle,
       lineColor: Colors.grey[200],
       dividerMarginInsets: EdgeInsets.only(top: 16, bottom: 2),
     );

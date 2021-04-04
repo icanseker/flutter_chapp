@@ -33,8 +33,8 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget {
         child: Row(
           children: [
             Container(
-              width: 36,
-              height: 36,
+              width: this.height / 2 + 6,
+              height: this.height / 2 + 6,
               child: IconButton(
                 icon: Icon(
                   Ionicons.arrow_back_outline,
