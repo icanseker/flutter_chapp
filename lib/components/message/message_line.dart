@@ -1,3 +1,4 @@
+import 'package:chapp/components/conversation/timeline/settings.dart';
 import 'package:chapp/components/conversation/timeline/timeline.dart';
 import 'package:chapp/components/empty_widget.dart';
 import 'package:chapp/components/message/blueprint/incoming_message.dart';
@@ -8,7 +9,6 @@ import 'package:chapp/components/message/blueprint/outgoing_message.dart';
 import 'package:chapp/components/message/template/message_template.dart';
 import 'package:chapp/components/swipeable/blueprint/icon_swipe_definition.dart';
 import 'package:chapp/components/swipeable/icon_swipe_ability.dart';
-import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
@@ -65,15 +65,20 @@ class MessageLine extends StatelessWidget {
           children: [
             _getCustomMessageTemplate(
               maxWidth,
-              ChappTheme.incomingMessageTextStyle,
-              ChappTheme.incomingMessageTemplateBackground,
+              TextStyle(
+                fontSize: ConversationTimelineSettings.messageFontSize,
+              ),
+              ConversationTimelineSettings.incomingMessageTemplateBackground,
               MessageTemplateSignLinePosition.left,
             ),
             Container(
               padding: EdgeInsets.all(4),
               child: Text(
                 DateFormat.Hm().format(inMessage.receivedTime),
-                style: ChappTheme.incomingMessageTimeStampTextStyle,
+                style: TextStyle(
+                  fontSize:
+                      ConversationTimelineSettings.messageTimeStampFontSize,
+                ),
               ),
             ),
           ],
@@ -108,11 +113,14 @@ class MessageLine extends StatelessWidget {
                     DateFormat.Hm().format(outMessage.sentTime == null
                         ? outMessage.createdTime
                         : outMessage.sentTime),
-                    style: ChappTheme.outgoingMessageTimeStampTextStyle,
+                    style: TextStyle(
+                      fontSize:
+                          ConversationTimelineSettings.messageTimeStampFontSize,
+                    ),
                   ),
                   Icon(
                     outMessage.status.icon,
-                    size: ChappTheme.outgoingMessageLineIconSize,
+                    size: ConversationTimelineSettings.messageStatusIconSize,
                     color: outMessage.status.iconColor,
                   )
                 ],
@@ -120,12 +128,17 @@ class MessageLine extends StatelessWidget {
             ),
             _getCustomMessageTemplate(
               maxWidth,
-              ChappTheme.outgoingMessageTextStyle,
+              TextStyle(
+                fontSize: ConversationTimelineSettings.messageFontSize,
+              ),
               message.status == MessageStatus.send_error
-                  ? ChappTheme.sendErrorOccurredMessageTemplateBackground
+                  ? ConversationTimelineSettings
+                      .sendErrorOccurredMessageTemplateBackground
                   : message.status == MessageStatus.waiting_for_connection
-                      ? ChappTheme.connectionWaitingMessageTemplateBackground
-                      : ChappTheme.outgoingMessageTemplateBackground,
+                      ? ConversationTimelineSettings
+                          .connectionWaitingMessageTemplateBackground
+                      : ConversationTimelineSettings
+                          .outgoingMessageTemplateBackground,
               MessageTemplateSignLinePosition.right,
             ),
           ],

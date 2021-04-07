@@ -1,3 +1,4 @@
+import 'package:chapp/components/conversation/timeline/settings.dart';
 import 'package:chapp/components/empty_widget.dart';
 import 'package:chapp/components/message/blueprint/message_content_template.dart';
 import 'package:chapp/components/message/blueprint/message_template_sign_line_position.dart';
@@ -104,7 +105,7 @@ class MessageTemplate extends StatelessWidget {
               this.titlePrefix != null
                   ? Icon(
                       this.titlePrefix,
-                      size: this.messageTextStyle.fontSize,
+                      size: ConversationTimelineSettings.messageTitlePrefixSize,
                       color: this.titleColor,
                     )
                   : EmptyWidget(),
@@ -115,7 +116,7 @@ class MessageTemplate extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
-                    fontSize: this.messageTextStyle.fontSize - 2.0,
+                    fontSize: ConversationTimelineSettings.messageTitleFontSize,
                     color: this.titleColor,
                   ),
                 ),
@@ -133,7 +134,8 @@ class MessageTemplate extends StatelessWidget {
               this.definitionPrefix != null
                   ? Icon(
                       this.definitionPrefix,
-                      size: this.messageTextStyle.fontSize - 2.0,
+                      size: ConversationTimelineSettings
+                          .messageDefinitionPrefixSize,
                       color: this.definitionColor,
                     )
                   : EmptyWidget(),
@@ -146,7 +148,8 @@ class MessageTemplate extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontSize: this.messageTextStyle.fontSize - 4.0,
+                    fontSize:
+                        ConversationTimelineSettings.messageDefinitionFontSize,
                     color: this.definitionColor,
                   ),
                 ),

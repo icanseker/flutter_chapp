@@ -1,31 +1,52 @@
 enum GeneralContentSize {
-  smallest,
-  extra_small,
-  smaller,
+  x6_small,
+  x5_small,
+  x4_small,
+  x3_small,
+  x2_small,
+  x_small,
+  small,
   standard,
-  little_bigger,
-  bigger,
-  extra_big,
-  biggest,
+  large,
+  x_large,
+  x2_large,
+  x3_large,
+  x4_large,
+  x5_large,
+  x6_large,
 }
 
-extension ContentSizeDeviation on GeneralContentSize {
-  double get deviation {
+extension ContentSizeCoefficient on GeneralContentSize {
+  double get sizeRatio {
     switch (this) {
-      case GeneralContentSize.little_bigger:
-        return 1.0;
-      case GeneralContentSize.bigger:
-        return 2.0;
-      case GeneralContentSize.extra_big:
-        return 4.0;
-      case GeneralContentSize.biggest:
-        return 6.0;
-      case GeneralContentSize.smaller:
-        return -2.0;
-      case GeneralContentSize.extra_small:
-        return -3.0;
-      case GeneralContentSize.smallest:
-        return -4.0;
+      case GeneralContentSize.small:
+        return -0.1;
+      case GeneralContentSize.x_small:
+        return -0.2;
+      case GeneralContentSize.x2_small:
+        return -0.3;
+      case GeneralContentSize.x3_small:
+        return -0.4;
+      case GeneralContentSize.x4_small:
+        return -0.5;
+      case GeneralContentSize.x5_small:
+        return -0.6;
+      case GeneralContentSize.x6_small:
+        return -0.7;
+      case GeneralContentSize.large:
+        return 0.1;
+      case GeneralContentSize.x_large:
+        return 0.2;
+      case GeneralContentSize.x2_large:
+        return 0.3;
+      case GeneralContentSize.x3_large:
+        return 0.4;
+      case GeneralContentSize.x4_large:
+        return 0.5;
+      case GeneralContentSize.x5_large:
+        return 0.6;
+      case GeneralContentSize.x6_large:
+        return 0.7;
       case GeneralContentSize.standard:
       default:
         return 0.0;

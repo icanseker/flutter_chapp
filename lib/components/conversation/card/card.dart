@@ -4,6 +4,7 @@ import 'package:chapp/components/avatar/blueprint/circle_avatar.dart';
 import 'package:chapp/components/conversation/blueprint/conversation.dart';
 import 'package:chapp/components/conversation/blueprint/multi_channel_conversation.dart';
 import 'package:chapp/components/conversation/blueprint/single_channel_conversation.dart';
+import 'package:chapp/components/conversation/card/settings.dart';
 import 'package:chapp/components/empty_widget.dart';
 import 'package:chapp/components/message/blueprint/message.dart';
 import 'package:chapp/components/message/blueprint/message_content_type.dart';
@@ -15,10 +16,8 @@ import 'package:chapp/global/conversations.dart';
 import 'package:chapp/model/datetime/datetime_stamp.dart';
 import 'package:chapp/model/datetime/datetime_stamp_category.dart';
 import 'package:chapp/model/subject/person_status.dart';
-import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:chapp/screen/chat.dart';
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
 
 class ConversationCard extends StatefulWidget {
   final String conversationKey;
@@ -62,11 +61,11 @@ class _ConversationCardState extends State<ConversationCard> {
           Container(
             child: AvatarWidget(
               avatarShape: CircleShapedAvatar(
-                radius: ChappTheme.conversationCardAvatarRadius,
+                radius: ConversationCardSettings.avatarRadius,
               ),
               avatarImage: conversation.avatar,
-              borderSize: 1,
-              borderColor: Colors.black,
+              borderSize: ConversationCardSettings.avatarBorderSize,
+              borderColor: ConversationCardSettings.avatarBorderColor,
               avatarBadge: (conversation is MultiChannelConversation)
                   ? null
                   : (conversation as SingleChannelConversation).personStatus !=
@@ -75,9 +74,11 @@ class _ConversationCardState extends State<ConversationCard> {
                       : AvatarBadge(
                           position: Alignment.topRight,
                           color: PersonStatus.online.ideColor,
-                          size: ChappTheme.conversationCardAvatarBadgeSize,
-                          borderColor: Colors.white,
-                          borderSize: 1,
+                          size: ConversationCardSettings.avatarBadgeSize,
+                          borderColor:
+                              ConversationCardSettings.avatarBadgeBorderColor,
+                          borderSize:
+                              ConversationCardSettings.avatarBadgeBorderSize,
                         ),
             ),
           ),
@@ -90,7 +91,7 @@ class _ConversationCardState extends State<ConversationCard> {
                     title: conversation.title,
                     unReadCount: conversation.unReadCount,
                     titlePrefix: conversation is MultiChannelConversation
-                        ? Ionicons.people_circle_outline
+                        ? ConversationCardSettings.titlePrefix
                         : null,
                   ),
                   _lastMessageWidget(
@@ -129,24 +130,27 @@ class _ConversationCardState extends State<ConversationCard> {
         titlePrefix != null
             ? Icon(
                 titlePrefix,
-                color: Colors.black54,
-                size: ChappTheme.conversationCardTitleIconSize,
+                color: ConversationCardSettings.titlePrefixColor,
+                size: ConversationCardSettings.titlePrefixSize,
               )
             : EmptyWidget(),
         Flexible(child: _titleTextWidget(title)),
         unReadCount > 0
             ? Container(
                 margin: EdgeInsets.only(left: 4),
-                height: ChappTheme.conversationCardUnreadCountWrapperSize,
-                width: ChappTheme.conversationCardUnreadCountWrapperSize,
+                height: ConversationCardSettings.unreadCountWrapperSize,
+                width: ConversationCardSettings.unreadCountWrapperSize,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Theme.of(context).primaryColor,
+                  color: ConversationCardSettings.unreadCountWrapperColor,
                 ),
                 child: Text(
                   unReadCount > 99 ? '99' : unReadCount.toString(),
-                  style: ChappTheme.conversationCardUnreadCountTextStyle,
+                  style: TextStyle(
+                    color: ConversationCardSettings.unreadCountFontColor,
+                    fontSize: ConversationCardSettings.unreadCountFontSize,
+                  ),
                 ),
               )
             : EmptyWidget(),
@@ -158,57 +162,38 @@ class _ConversationCardState extends State<ConversationCard> {
     Text textWidget = Text(
       title,
       overflow: TextOverflow.ellipsis,
-      style: ChappTheme.conversationCardTitleTextStyle,
+      style: TextStyle(
+        fontSize: ConversationCardSettings.titleFontSize,
+        fontWeight: FontWeight.w600,
+      ),
     );
 
-    return ChappTheme.autoSizedConversationCardTitleText
+    return ConversationCardSettings.autoSizedTitleText
         ? FittedBox(fit: BoxFit.fitWidth, child: textWidget)
         : textWidget;
   }
 
   Widget _lastActivityTimeWidget() {
     DateTimeStamp lastActivityTimeStamp = conversation.lastActivityTimeStamp;
-    TextStyle lastActivityTimeStampTextStyle =
-        ChappTheme.conversationCardLastActivityTextStyle;
+    String firstLine;
+    String secondLine;
 
     if (lastActivityTimeStamp != null) {
-      List<Widget> reWidgets = [];
-
       switch (lastActivityTimeStamp.category) {
         case DateTimeStampCategory.just_now:
           {
-            reWidgets.add(
-              Text(
-                lastActivityTimeStamp.category.ide,
-                style: lastActivityTimeStampTextStyle,
-              ),
-            );
+            firstLine = lastActivityTimeStamp.category.ide;
             break;
           }
         case DateTimeStampCategory.today:
           {
-            reWidgets.add(
-              Text(
-                lastActivityTimeStamp.time,
-                style: lastActivityTimeStampTextStyle,
-              ),
-            );
+            firstLine = lastActivityTimeStamp.time;
             break;
           }
         case DateTimeStampCategory.yesterday:
           {
-            reWidgets.add(
-              Text(
-                lastActivityTimeStamp.category.ide,
-                style: lastActivityTimeStampTextStyle,
-              ),
-            );
-            reWidgets.add(
-              Text(
-                lastActivityTimeStamp.time,
-                style: lastActivityTimeStampTextStyle,
-              ),
-            );
+            firstLine = lastActivityTimeStamp.category.ide;
+            secondLine = lastActivityTimeStamp.time;
             break;
           }
         case DateTimeStampCategory.two_days_before:
@@ -216,46 +201,52 @@ class _ConversationCardState extends State<ConversationCard> {
         case DateTimeStampCategory.four_days_before:
         case DateTimeStampCategory.five_days_before:
           {
-            reWidgets.add(
-              Text(
-                lastActivityTimeStamp.day,
-                style: lastActivityTimeStampTextStyle,
-              ),
-            );
-            reWidgets.add(
-              Text(
-                lastActivityTimeStamp.time,
-                style: lastActivityTimeStampTextStyle,
-              ),
-            );
+            firstLine = lastActivityTimeStamp.day;
+            secondLine = lastActivityTimeStamp.time;
             break;
           }
         default:
           {
-            reWidgets.add(
-              Text(
-                lastActivityTimeStamp.date,
-                style: lastActivityTimeStampTextStyle,
-              ),
-            );
-            reWidgets.add(
-              Text(
-                lastActivityTimeStamp.time,
-                style: lastActivityTimeStampTextStyle,
-              ),
-            );
+            firstLine = lastActivityTimeStamp.date;
+            secondLine = lastActivityTimeStamp.time;
             break;
           }
       }
 
+      if (firstLine == null && secondLine == null) return EmptyWidget();
+
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
-        children: reWidgets,
+        children: [
+          firstLine != null
+              ? Text(
+                  firstLine,
+                  style: TextStyle(
+                    fontSize:
+                        ConversationCardSettings.lastActivityTimeStampFontSize,
+                    fontWeight: FontWeight.w400,
+                    color:
+                        ConversationCardSettings.lastActivityTimeStampFontColor,
+                  ),
+                )
+              : EmptyWidget(),
+          secondLine != null
+              ? Text(
+                  secondLine,
+                  style: TextStyle(
+                    fontSize:
+                        ConversationCardSettings.lastActivityTimeStampFontSize,
+                    fontWeight: FontWeight.w400,
+                    color:
+                        ConversationCardSettings.lastActivityTimeStampFontColor,
+                  ),
+                )
+              : EmptyWidget(),
+        ],
       );
-    }
-
-    return EmptyWidget();
+    } else
+      return EmptyWidget();
   }
 
   Widget _lastMessageWidget(
@@ -268,14 +259,16 @@ class _ConversationCardState extends State<ConversationCard> {
             child: Text(
               (lastMessage.content as TextMessage).text,
               overflow: TextOverflow.ellipsis,
-              style: ChappTheme.conversationCardLastMessageTextStyle,
+              style: TextStyle(
+                fontSize: ConversationCardSettings.lastMessageFontSize,
+                fontWeight: FontWeight.w400,
+              ),
             ),
           ),
         ],
       );
-    } else {
+    } else
       lastMessageHolder = EmptyWidget();
-    }
 
     Widget lastMessageIconIde = Container();
     if (lastMessage is OutgoingMessage) {
@@ -283,7 +276,7 @@ class _ConversationCardState extends State<ConversationCard> {
         margin: EdgeInsets.only(right: 2),
         child: Icon(
           lastMessage.status.icon,
-          size: ChappTheme.conversationCardLastMessageIconSize,
+          size: ConversationCardSettings.lastMessageIconSize,
           color: lastMessage.status.iconColor,
         ),
       );
@@ -298,6 +291,10 @@ class _ConversationCardState extends State<ConversationCard> {
                     child: Text(
                       senderTitle + ':',
                       overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: ConversationCardSettings.senderTitleFontSize,
+                        color: ConversationCardSettings.senderTitleFontColor,
+                      ),
                     ),
                   ),
                 ],

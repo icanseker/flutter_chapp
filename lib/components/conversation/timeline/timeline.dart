@@ -1,10 +1,10 @@
 import 'package:chapp/components/conversation/blueprint/conversation.dart';
 import 'package:chapp/components/conversation/blueprint/single_channel_conversation.dart';
 import 'package:chapp/components/conversation/timeline/multi_channel_timeline.dart';
+import 'package:chapp/components/conversation/timeline/settings.dart';
 import 'package:chapp/components/conversation/timeline/single_channel_timeline.dart';
 import 'package:chapp/components/divider/divider.dart';
 import 'package:chapp/components/swipeable/blueprint/simultaneity_definition.dart';
-import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:flutter/material.dart';
 
 class ConversationTimeline extends StatelessWidget {
@@ -36,12 +36,16 @@ class ConversationTimeline extends StatelessWidget {
     );
   }
 
-  static getTimelineDivider(String label) {
+  static timelineDivider(String label) {
     return HorizontalDivider(
       labelAlignment: Alignment.center,
       label: label,
       labelMarginAmount: 12.0,
-      labelTextStyle: ChappTheme.timelineDividerTextStyle,
+      labelTextStyle: TextStyle(
+        fontSize: ConversationTimelineSettings.timelineDividerLabelFontSize,
+        color: ConversationTimelineSettings.timelineDividerLineColor,
+        fontWeight: FontWeight.w400,
+      ),
       lineColor: Colors.grey[200],
       dividerMarginInsets: EdgeInsets.only(top: 16, bottom: 2),
     );

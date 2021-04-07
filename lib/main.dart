@@ -4,6 +4,7 @@ import 'package:chapp/screen/conversations.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  ChappTheme.initTheme();
   runApp(Chapp());
 }
 

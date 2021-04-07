@@ -1,5 +1,6 @@
 import 'package:chapp/components/avatar/blueprint/avatar_badge.dart';
 import 'package:chapp/components/conversation/appbar/chatbar.dart';
+import 'package:chapp/components/conversation/appbar/settings.dart';
 import 'package:chapp/components/conversation/blueprint/conversation.dart';
 import 'package:chapp/components/conversation/blueprint/single_channel_conversation.dart';
 import 'package:chapp/components/conversation/timeline/timeline.dart';
@@ -44,9 +45,9 @@ class _ChatScreenState extends State<ChatScreen> {
                   : AvatarBadge(
                       position: Alignment.topRight,
                       color: PersonStatus.online.ideColor,
-                      size: 12,
-                      borderColor: Colors.white,
-                      borderSize: 1,
+                      size: ChatBarSettings.avatarBadgeSize,
+                      borderColor: ChatBarSettings.avatarBadgeBorderColor,
+                      borderSize: ChatBarSettings.avatarBadgeBorderSize,
                     ),
             )
           : ChatBar(

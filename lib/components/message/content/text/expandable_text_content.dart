@@ -1,3 +1,4 @@
+import 'package:chapp/components/conversation/timeline/settings.dart';
 import 'package:chapp/components/empty_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -30,8 +31,10 @@ class _ExpandableTextContentState extends State<ExpandableTextContent> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle switchBtnTextStyle =
-        TextStyle(fontSize: widget.textStyle.fontSize - 1.5);
+    TextStyle switchBtnTextStyle = TextStyle(
+      fontSize:
+          ConversationTimelineSettings.expandableMsgTemplateSwitchBtnFontSize,
+    );
 
     return Column(
       children: [

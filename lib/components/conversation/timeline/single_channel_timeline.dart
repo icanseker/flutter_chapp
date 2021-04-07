@@ -1,9 +1,9 @@
 import 'package:chapp/components/conversation/blueprint/single_channel_conversation.dart';
+import 'package:chapp/components/conversation/timeline/settings.dart';
 import 'package:chapp/components/conversation/timeline/timeline.dart';
 import 'package:chapp/components/message/blueprint/message.dart';
 import 'package:chapp/components/message/blueprint/outgoing_message.dart';
 import 'package:chapp/components/message/message_line.dart';
-import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:flutter/material.dart';
 
 class SingleChannelTimeline extends StatelessWidget {
@@ -57,7 +57,7 @@ class SingleChannelTimeline extends StatelessWidget {
         );
 
       timelineWidgets.add(
-        ConversationTimeline.getTimelineDivider(seriesTimeStampIde),
+        ConversationTimeline.timelineDivider(seriesTimeStampIde),
       );
     }
 
@@ -89,7 +89,7 @@ class SingleChannelTimeline extends StatelessWidget {
           MessageLine(
             message: currentMessage,
             signLineColor: currentMessage.isUnRead()
-                ? ChappTheme.unReadMessageSignColor
+                ? ConversationTimelineSettings.unReadMessageSignColor
                 : null,
             activateTopRightBorderRadius: true,
             activateBottomLeftBorderRadius: true,

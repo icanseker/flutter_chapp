@@ -1,14 +1,13 @@
 import 'package:chapp/components/avatar/avatar_widget.dart';
 import 'package:chapp/components/avatar/blueprint/avatar_badge.dart';
 import 'package:chapp/components/avatar/blueprint/circle_avatar.dart';
+import 'package:chapp/components/conversation/appbar/settings.dart';
 import 'package:chapp/components/empty_widget.dart';
-import 'package:chapp/helper/color.dart';
 import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class ChatBar extends StatelessWidget implements PreferredSizeWidget {
-  final double height;
   final String title;
   final String subtitle;
   final Color subtitleColor;
@@ -17,7 +16,6 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget {
 
   const ChatBar({
     Key key,
-    this.height = 60.0,
     @required this.title,
     this.subtitle,
     this.subtitleColor,
@@ -33,25 +31,24 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget {
         child: Row(
           children: [
             Container(
-              width: this.height / 2 + 6,
-              height: this.height / 2 + 6,
+              width: ChatBarSettings.backBtnContainerWidth,
               child: IconButton(
                 icon: Icon(
                   Ionicons.arrow_back_outline,
-                  color: Colors.black54,
-                  size: 18,
+                  color: ChatBarSettings.backBtnIconColor,
+                  size: ChatBarSettings.backBtnIconSize,
                 ),
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ),
             this.avatarImage != null
                 ? AvatarWidget(
-                    avatarShape:
-                        CircleShapedAvatar(radius: this.height / 2 - 6),
-                    // padding vertical = 6
+                    avatarShape: CircleShapedAvatar(
+                      radius: ChatBarSettings.avatarRadius,
+                    ),
                     avatarImage: this.avatarImage,
-                    borderSize: 1,
-                    borderColor: Colors.black,
+                    borderSize: ChatBarSettings.avatarBorderSize,
+                    borderColor: ChatBarSettings.avatarBorderColor,
                     avatarBadge: this.avatarBadge,
                   )
                 : EmptyWidget(),
@@ -68,7 +65,7 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget {
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 13,
+                            fontSize: ChatBarSettings.subtitleFontSize,
                             color: subtitleColor,
                           ),
                         )
@@ -78,48 +75,52 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             Container(
               padding: const EdgeInsets.all(0.0),
-              width: 36.0,
+              width: ChatBarSettings.actionBtnContainerWidth,
               child: IconButton(
                 icon: Icon(Ionicons.call),
-                iconSize: 20,
-                color: Colors.black54,
+                iconSize: ChatBarSettings.actionBtnIconSize,
+                color: ChatBarSettings.actionBtnIconColor,
                 onPressed: () {},
               ),
             ),
             Container(
               padding: const EdgeInsets.all(0.0),
-              width: 36.0,
+              width: ChatBarSettings.actionBtnContainerWidth,
               child: IconButton(
                 icon: Icon(Ionicons.videocam),
-                iconSize: 20,
-                color: Colors.black54,
+                iconSize: ChatBarSettings.actionBtnIconSize,
+                color: ChatBarSettings.actionBtnIconColor,
                 onPressed: () {},
               ),
             ),
-            PopupMenuButton(
-              padding: EdgeInsets.all(0),
-              itemBuilder: (BuildContext context) => [
-                PopupMenuItem(
-                  child: Row(
-                    children: [
-                      Text('Delete all messages'),
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+            Container(
+              padding: const EdgeInsets.all(0.0),
+              width: ChatBarSettings.menuBtnContainerWidth,
+              child: PopupMenuButton(
+                iconSize: ChatBarSettings.menuBtnIconSize,
+                itemBuilder: (BuildContext context) => [
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        Text('Delete all messages'),
+                      ],
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                    ),
+                    value: "/empty-chat",
                   ),
-                  value: "/empty-chat",
-                ),
-                PopupMenuItem(
-                  child: Row(
-                    children: [
-                      Text('Delete conversation'),
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        Text('Delete conversation'),
+                      ],
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                    ),
+                    value: "/delete-conversation",
                   ),
-                  value: "/delete-conversation",
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -127,10 +128,10 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget {
           border: Border(
             bottom: BorderSide(
               width: 1.0,
-              color: Colors.black12,
+              color: ChatBarSettings.bottomBorderColor,
             ),
           ),
-          color: ColorHelper.createMaterialColor(Color(0xFFFCFCFCFC)),
+          color: ChatBarSettings.backgroundColor,
         ),
       ),
     );
@@ -140,7 +141,10 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget {
     Text textWidget = Text(
       title,
       overflow: TextOverflow.ellipsis,
-      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+      style: TextStyle(
+        fontWeight: FontWeight.w600,
+        fontSize: ChatBarSettings.titleFontSize,
+      ),
     );
 
     return ChappTheme.autoSizedConversationChatBarTitleText
@@ -149,5 +153,7 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(this.height);
+  Size get preferredSize => Size.fromHeight(
+        ChatBarSettings.height + 8,
+      ); // vertical padding = 4
 }

@@ -1,10 +1,10 @@
 import 'package:chapp/components/conversation/blueprint/multi_channel_conversation.dart';
+import 'package:chapp/components/conversation/timeline/settings.dart';
 import 'package:chapp/components/conversation/timeline/timeline.dart';
 import 'package:chapp/components/message/blueprint/message.dart';
 import 'package:chapp/components/message/blueprint/outgoing_message.dart';
 import 'package:chapp/components/message/message_line.dart';
 import 'package:chapp/global/people_list.dart';
-import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:flutter/material.dart';
 
 class MultiChannelTimeline extends StatelessWidget {
@@ -73,7 +73,7 @@ class MultiChannelTimeline extends StatelessWidget {
         );
 
       timelineWidgets.add(
-        ConversationTimeline.getTimelineDivider(seriesTimeStampIde),
+        ConversationTimeline.timelineDivider(seriesTimeStampIde),
       );
     }
 
@@ -111,7 +111,7 @@ class MultiChannelTimeline extends StatelessWidget {
           MessageLine(
             message: currentMessage,
             signLineColor: currentMessage.isUnRead()
-                ? ChappTheme.unReadMessageSignColor
+                ? ConversationTimelineSettings.unReadMessageSignColor
                 : null,
             title: senderTitle,
             titleColor: senderColorRep,
@@ -127,7 +127,7 @@ class MultiChannelTimeline extends StatelessWidget {
               MessageLine(
                 message: currentMessage,
                 signLineColor: currentMessage.isUnRead()
-                    ? ChappTheme.unReadMessageSignColor
+                    ? ConversationTimelineSettings.unReadMessageSignColor
                     : null,
                 activateTopRightBorderRadius: true,
                 activateBottomLeftBorderRadius: true,
