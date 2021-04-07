@@ -5,15 +5,12 @@ import 'package:chapp/model/theme/general_content_size.dart';
 import 'package:flutter/material.dart';
 
 class ChappTheme {
-  // @formatter:off
-  static Image defaultAvatar = Image.asset('assets/images/user-icon.png');
-  static Image defaultGroupAvatar = Image.asset('assets/images/group-icon.png');
 
-  static Color themePrimaryColor = Colors.redAccent;
-  static Color chatScreenBackground = const Color(0xFFFCFCFCFC);
+  static Image defaultAvatar;
+  static Image defaultGroupAvatar;
 
-  static Set<Color> uniqueColorSet = {Colors.red, Colors.blueAccent};
-  // @formatter:on
+  static Color themePrimaryColor;
+  static Color chatScreenBackground;
 
   static String _selectedFontFamily;
 
@@ -22,7 +19,7 @@ class ChappTheme {
   }
 
   static GeneralContentSize _selectedGeneralContentSize =
-      GeneralContentSize.x6_large;
+      GeneralContentSize.standard;
 
   static GeneralContentSize get generalContentSize {
     return _selectedGeneralContentSize == null
@@ -33,10 +30,15 @@ class ChappTheme {
   static int expandableContentTextSizeLimit = 360;
 
   static void initTheme() {
+
+    themePrimaryColor = Colors.redAccent;
+    chatScreenBackground = const Color(0xFFFCFCFCFC);
+
+    defaultAvatar = Image.asset('assets/images/user-icon.png');
+    defaultGroupAvatar = Image.asset('assets/images/group-icon.png');
+
     ConversationCardSettings(sizeRatio: generalContentSize.sizeRatio);
     ConversationTimelineSettings(sizeRatio: generalContentSize.sizeRatio);
     ChatBarSettings(sizeRatio: generalContentSize.sizeRatio);
   }
-
-  static bool autoSizedConversationChatBarTitleText = false;
 }

@@ -8,10 +8,10 @@ class ConversationCardSettings extends ComponentSettings {
   static IconData titlePrefix = Ionicons.people_circle_outline;
   static double titlePrefixSize = 2.0;
   static Color titlePrefixColor = Colors.black54;
-  static bool autoSizedTitleText = true;
+  static bool autoSizedTitleFontSize = false;
 
-  static double unreadCountWrapperSize = 1.7;
-  static double unreadCountFontSize = 1.6;
+  static double unreadCountWrapperSize = 1.8;
+  static double unreadCountFontSize = 1.5;
   static Color unreadCountFontColor = Colors.white;
   static Color unreadCountWrapperColor = ChappTheme.themePrimaryColor;
 

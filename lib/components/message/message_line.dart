@@ -53,12 +53,12 @@ class MessageLine extends StatelessWidget {
         leftSwipe: IconSwipeDefinition(
           iconData: Ionicons.arrow_undo_outline,
           brightenEffect: true,
-          iconDefinition: 'Forward',
+          iconLabel: 'Forward',
         ),
         rightSwipe: IconSwipeDefinition(
           iconData: Ionicons.arrow_redo_outline,
           brightenEffect: true,
-          iconDefinition: 'Reply',
+          iconLabel: 'Reply',
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -93,12 +93,12 @@ class MessageLine extends StatelessWidget {
         leftSwipe: IconSwipeDefinition(
           iconData: Ionicons.arrow_undo_outline,
           brightenEffect: true,
-          iconDefinition: 'Forward',
+          iconLabel: 'Forward',
         ),
         rightSwipe: IconSwipeDefinition(
           iconData: Ionicons.arrow_redo_outline,
           brightenEffect: true,
-          iconDefinition: 'Reply',
+          iconLabel: 'Reply',
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,

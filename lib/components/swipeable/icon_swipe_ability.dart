@@ -1,3 +1,4 @@
+import 'package:chapp/components/conversation/timeline/settings.dart';
 import 'package:chapp/components/empty_widget.dart';
 import 'package:chapp/components/swipeable/blueprint/icon_swipe_definition.dart';
 import 'package:chapp/components/swipeable/blueprint/simultaneity_definition.dart';
@@ -192,18 +193,29 @@ class _IconSwipeAbilityState extends State<IconSwipeAbility>
                         width: widget.contextWidth / 2 - 6,
                         child: Row(
                           children: [
-                            Icon(widget.rightSwipe.iconData),
-                            widget.rightSwipe.iconDefinition != null
+                            Icon(
+                              widget.rightSwipe.iconData,
+                              size: ConversationTimelineSettings
+                                  .swipeDefinitionIconSize,
+                              color: ConversationTimelineSettings
+                                  .swipeDefinitionIconColor,
+                            ),
+                            widget.rightSwipe.iconLabel != null
                                 ? SizedBox(width: 4)
                                 : EmptyWidget(),
-                            widget.rightSwipe.iconDefinition != null
+                            widget.rightSwipe.iconLabel != null
                                 ? Expanded(
                                     child: Opacity(
                                       opacity:
                                           rightSwipeOpacity >= 1.0 ? 1.0 : 0.0,
                                       child: Text(
-                                        widget.rightSwipe.iconDefinition,
-                                        style: TextStyle(color: Colors.black54),
+                                        widget.rightSwipe.iconLabel,
+                                        style: TextStyle(
+                                          color: ConversationTimelineSettings
+                                              .swipeDefinitionIconLabelFontColor,
+                                          fontSize: ConversationTimelineSettings
+                                              .swipeDefinitionIconLabelFontSize,
+                                        ),
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
@@ -226,25 +238,36 @@ class _IconSwipeAbilityState extends State<IconSwipeAbility>
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            widget.leftSwipe.iconDefinition != null
+                            widget.leftSwipe.iconLabel != null
                                 ? Expanded(
                                     child: Opacity(
                                       opacity: this.leftSwipeOpacity >= 1.0
                                           ? 1.0
                                           : 0.0,
                                       child: Text(
-                                        widget.leftSwipe.iconDefinition,
-                                        style: TextStyle(color: Colors.black54),
+                                        widget.leftSwipe.iconLabel,
+                                        style: TextStyle(
+                                          color: ConversationTimelineSettings
+                                              .swipeDefinitionIconLabelFontColor,
+                                          fontSize: ConversationTimelineSettings
+                                              .swipeDefinitionIconLabelFontSize,
+                                        ),
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.end,
                                       ),
                                     ),
                                   )
                                 : EmptyWidget(),
-                            widget.leftSwipe.iconDefinition != null
+                            widget.leftSwipe.iconLabel != null
                                 ? SizedBox(width: 4)
                                 : EmptyWidget(),
-                            Icon(widget.leftSwipe.iconData),
+                            Icon(
+                              widget.leftSwipe.iconData,
+                              size: ConversationTimelineSettings
+                                  .swipeDefinitionIconSize,
+                              color: ConversationTimelineSettings
+                                  .swipeDefinitionIconColor,
+                            ),
                           ],
                         ),
                       ),

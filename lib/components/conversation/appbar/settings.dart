@@ -39,6 +39,8 @@ class ChatBarSettings extends ComponentSettings {
   static double menuBtnContainerWidth =
       actionBtnIconSize + actionBtnContainerInnerPadding * 2;
 
+  static bool autoSizedTitleFontSize = false;
+
   ChatBarSettings({@required double sizeRatio}) : super(sizeRatio: sizeRatio) {
     height *= super.sizeRatioAmount;
 

@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 class IconSwipeDefinition extends SwipeDefinition {
   final IconData iconData;
-  final String iconDefinition;
+  final String iconLabel;
   final bool brightenEffect;
 
   IconSwipeDefinition({
     @required this.iconData,
-    this.iconDefinition,
+    this.iconLabel,
     double swipeThreshold = 25.0,
     VoidCallback swipeCallback,
     this.brightenEffect = false,

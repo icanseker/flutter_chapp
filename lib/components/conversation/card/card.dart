@@ -140,16 +140,21 @@ class _ConversationCardState extends State<ConversationCard> {
                 margin: EdgeInsets.only(left: 4),
                 height: ConversationCardSettings.unreadCountWrapperSize,
                 width: ConversationCardSettings.unreadCountWrapperSize,
-                alignment: Alignment.center,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: ConversationCardSettings.unreadCountWrapperColor,
                 ),
-                child: Text(
-                  unReadCount > 99 ? '99' : unReadCount.toString(),
-                  style: TextStyle(
-                    color: ConversationCardSettings.unreadCountFontColor,
-                    fontSize: ConversationCardSettings.unreadCountFontSize,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(
+                      unReadCount > 99 ? '99+' : unReadCount.toString(),
+                      style: TextStyle(
+                        color: ConversationCardSettings.unreadCountFontColor,
+                        fontSize: ConversationCardSettings.unreadCountFontSize,
+                      ),
+                    ),
                   ),
                 ),
               )
@@ -168,7 +173,7 @@ class _ConversationCardState extends State<ConversationCard> {
       ),
     );
 
-    return ConversationCardSettings.autoSizedTitleText
+    return ConversationCardSettings.autoSizedTitleFontSize
         ? FittedBox(fit: BoxFit.fitWidth, child: textWidget)
         : textWidget;
   }

@@ -19,9 +19,16 @@ class ConversationTimelineSettings extends ComponentSettings {
 
   static Color incomingMessageTemplateBackground = const Color(0xFFEDEDED);
   static Color outgoingMessageTemplateBackground = const Color(0xFFCDE3FF);
-  static Color sendErrorOccurredMessageTemplateBackground = const Color(0xFFFFCDD2);
-  static Color connectionWaitingMessageTemplateBackground = const Color(0xFFFFEBEE);
+  static Color sendErrorOccurredMessageTemplateBackground =
+      const Color(0xFFFFCDD2);
+  static Color connectionWaitingMessageTemplateBackground =
+      const Color(0xFFFFEBEE);
   static Color unReadMessageSignColor = Colors.lightGreen;
+
+  static double swipeDefinitionIconSize = 1.8;
+  static Color swipeDefinitionIconColor = Colors.black87;
+  static double swipeDefinitionIconLabelFontSize = 1.4;
+  static Color swipeDefinitionIconLabelFontColor = Colors.black54;
 
   ConversationTimelineSettings({@required double sizeRatio})
       : super(sizeRatio: sizeRatio) {
@@ -38,5 +45,8 @@ class ConversationTimelineSettings extends ComponentSettings {
     messageTitleFontSize *= super.sizeRatioAmount;
 
     expandableMsgTemplateSwitchBtnFontSize *= super.sizeRatioAmount;
+
+    swipeDefinitionIconSize *= super.sizeRatioAmount;
+    swipeDefinitionIconLabelFontSize *= super.sizeRatioAmount;
   }
 }

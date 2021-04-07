@@ -3,7 +3,6 @@ import 'package:chapp/components/avatar/blueprint/avatar_badge.dart';
 import 'package:chapp/components/avatar/blueprint/circle_avatar.dart';
 import 'package:chapp/components/conversation/appbar/settings.dart';
 import 'package:chapp/components/empty_widget.dart';
-import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -147,7 +146,7 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget {
       ),
     );
 
-    return ChappTheme.autoSizedConversationChatBarTitleText
+    return ChatBarSettings.autoSizedTitleFontSize
         ? FittedBox(fit: BoxFit.fitWidth, child: textWidget)
         : textWidget;
   }
