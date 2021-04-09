@@ -6,7 +6,7 @@ import 'package:chapp/components/message/blueprint/outgoing_message.dart';
 import 'package:chapp/components/message/blueprint/text_message.dart';
 
 SingleChannelConversation _c1 = SingleChannelConversation(
-  conId: 'c1',
+  conversationId: 'c1',
   personId: 'einstein',
 )
     .addMessage(
@@ -134,7 +134,7 @@ SingleChannelConversation _c1 = SingleChannelConversation(
     );
 
 SingleChannelConversation _c2 = SingleChannelConversation(
-  conId: 'c2',
+  conversationId: 'c2',
   personId: 'curie',
 )
     .addMessage(
@@ -300,7 +300,7 @@ SingleChannelConversation _c2 = SingleChannelConversation(
     );
 
 MultiChannelConversation _c3 = MultiChannelConversation(
-  conId: 'c3',
+  conversationId: 'c3',
   groupId: 'g1',
 )
     .addMessage(
@@ -589,7 +589,7 @@ MultiChannelConversation _c3 = MultiChannelConversation(
     );
 
 SingleChannelConversation _c4 = SingleChannelConversation(
-  conId: 'c4',
+  conversationId: 'c4',
   personId: 'faraday',
 )
     .addMessage(

@@ -37,32 +37,24 @@ class AvatarWidget extends StatelessWidget {
           double bottomRightRadius =
               (avatarShape as SquareShapedAvatar).bottomRightBorderRadius;
 
-          double badgePaddingAmount;
+          double badgePaddingAmount = 0;
 
           // for circle
           if (avatarBadge != null) {
             Alignment badgePosition = avatarBadge.position;
-            if (badgePosition == Alignment.center)
-              badgePaddingAmount = 0;
-            else {
-              if (badgePosition == Alignment.topRight)
-                badgePaddingAmount = topRightRadius * 0.29;
-              else if (badgePosition == Alignment.topLeft)
-                badgePaddingAmount = topLeftRadius * 0.29;
-              else if (badgePosition == Alignment.bottomRight)
-                badgePaddingAmount = bottomRightRadius * 0.29;
-              else if (badgePosition == Alignment.bottomLeft)
-                badgePaddingAmount = bottomLeftRadius * 0.29;
-              else if (badgePosition == Alignment.topCenter ||
-                  badgePosition == Alignment.bottomCenter ||
-                  badgePosition == Alignment.centerRight ||
-                  badgePosition == Alignment.centerLeft) badgePaddingAmount = 0;
+            if (badgePosition == Alignment.topRight)
+              badgePaddingAmount = topRightRadius * 0.29;
+            else if (badgePosition == Alignment.topLeft)
+              badgePaddingAmount = topLeftRadius * 0.29;
+            else if (badgePosition == Alignment.bottomRight)
+              badgePaddingAmount = bottomRightRadius * 0.29;
+            else if (badgePosition == Alignment.bottomLeft)
+              badgePaddingAmount = bottomLeftRadius * 0.29;
 
-              badgePaddingAmount = badgePaddingAmount -
-                  (avatarBadge.size / 2) +
-                  (borderSize / 2) -
-                  1;
-            }
+            badgePaddingAmount = badgePaddingAmount -
+                (avatarBadge.size / 2) +
+                (borderSize / 2) -
+                1;
           }
 
           return Container(
@@ -182,7 +174,7 @@ class AvatarWidget extends StatelessWidget {
   }
 
   EdgeInsetsGeometry _getBadgeContainerPadding(double badgePaddingAmount) {
-    if (badgePaddingAmount > 0)
+    if (badgePaddingAmount >= 0)
       return EdgeInsets.zero;
     else
       return EdgeInsets.all(-badgePaddingAmount);

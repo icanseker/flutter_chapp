@@ -13,8 +13,8 @@ class SingleChannelConversation extends Conversation {
   final String personId;
   List<Message> messages = [];
 
-  SingleChannelConversation({@required String conId, @required this.personId})
-      : super(id: conId);
+  SingleChannelConversation({@required String conversationId, @required this.personId})
+      : super(id: conversationId);
 
   SingleChannelConversation addMessage(Message message) {
     messages.add(message);

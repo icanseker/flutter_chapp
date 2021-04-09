@@ -15,8 +15,8 @@ class MultiChannelConversation extends Conversation {
 
   List<MapEntry<String, Message>> messages = [];
 
-  MultiChannelConversation({@required String conId, @required this.groupId})
-      : super(id: conId);
+  MultiChannelConversation({@required String conversationId, @required this.groupId})
+      : super(id: conversationId);
 
   void addPerson(String personId) {
     if (!isParticipant(personId)) group.addMember(personId);
