@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class ChappTheme {
 
-  static Image defaultAvatar;
+  static Image defaultPersonAvatar;
   static Image defaultGroupAvatar;
 
   static Color themePrimaryColor;
@@ -34,7 +34,7 @@ class ChappTheme {
     themePrimaryColor = Colors.redAccent;
     chatScreenBackground = const Color(0xFFFCFCFCFC);
 
-    defaultAvatar = Image.asset('assets/images/user-icon.png');
+    defaultPersonAvatar = Image.asset('assets/images/user-icon.png');
     defaultGroupAvatar = Image.asset('assets/images/group-icon.png');
 
     ConversationCardSettings(sizeRatio: generalContentSize.sizeRatio);

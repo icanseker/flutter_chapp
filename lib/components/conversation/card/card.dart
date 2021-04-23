@@ -1,6 +1,4 @@
-import 'package:chapp/components/avatar/avatar_widget.dart';
-import 'package:chapp/components/avatar/blueprint/avatar_badge.dart';
-import 'package:chapp/components/avatar/blueprint/circle_avatar.dart';
+import 'package:chapp/components/avatar/avatar.dart';
 import 'package:chapp/components/conversation/blueprint/conversation.dart';
 import 'package:chapp/components/conversation/blueprint/multi_channel_conversation.dart';
 import 'package:chapp/components/conversation/blueprint/single_channel_conversation.dart';
@@ -15,15 +13,13 @@ import 'package:chapp/global/common.dart';
 import 'package:chapp/global/conversations.dart';
 import 'package:chapp/model/datetime/datetime_stamp.dart';
 import 'package:chapp/model/datetime/datetime_stamp_category.dart';
-import 'package:chapp/model/subject/person_status.dart';
 import 'package:chapp/screen/chat.dart';
 import 'package:flutter/material.dart';
 
 class ConversationCard extends StatefulWidget {
   final String conversationKey;
 
-  const ConversationCard({Key key, @required this.conversationKey})
-      : super(key: key);
+  ConversationCard({Key key, @required this.conversationKey}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -51,36 +47,12 @@ class _ConversationCardState extends State<ConversationCard> {
             'conversation-key': widget.conversationKey,
           },
         );
-        setState(() {
-          conversation = globalConversationList[widget.conversationKey];
-        });
       },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            child: AvatarWidget(
-              avatarShape: CircleShapedAvatar(
-                radius: ConversationCardSettings.avatarRadius,
-              ),
-              avatarImage: conversation.avatar,
-              borderSize: ConversationCardSettings.avatarBorderSize,
-              borderColor: ConversationCardSettings.avatarBorderColor,
-              avatarBadge: (conversation is MultiChannelConversation)
-                  ? null
-                  : (conversation as SingleChannelConversation).personStatus !=
-                          PersonStatus.online
-                      ? null
-                      : AvatarBadge(
-                          position: Alignment.topRight,
-                          color: PersonStatus.online.ideColor,
-                          size: ConversationCardSettings.avatarBadgeSize,
-                          borderColor:
-                              ConversationCardSettings.avatarBadgeBorderColor,
-                          borderSize:
-                              ConversationCardSettings.avatarBadgeBorderSize,
-                        ),
-            ),
+          Avatar(
+            model: conversation.avatarModel,
           ),
           SizedBox(width: 12),
           Expanded(

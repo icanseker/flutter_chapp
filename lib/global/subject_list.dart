@@ -1,7 +1,9 @@
+import 'package:chapp/model/subject/group.dart';
 import 'package:chapp/model/subject/person.dart';
 import 'package:chapp/model/subject/person_status.dart';
+import 'package:chapp/model/subject/subject.dart';
 
-Map<String, Person> peopleList = {
+Map<String, Subject> subjectList = {
   'icanseker': new Person(
     id: 'icanseker',
     name: 'İsmail Can',
@@ -103,5 +105,22 @@ Map<String, Person> peopleList = {
     avatarUrl:
         'https://i.pinimg.com/originals/7a/9b/45/7a9b45f9502ab3a33ad059576e0c81ed.jpg',
     lastSeen: DateTime.parse('2021-03-14 23:32:34.612152'),
+  ),
+  'g1': new Group(
+    id: 'g1',
+    memberIdList: [
+      'einstein',
+      'tesla',
+      'curie',
+      'edison',
+      'newton',
+      'bohr',
+      'galilei',
+      'maxwell',
+      'thomson',
+      'faraday',
+      'rontgen'
+    ],
+    name: 'Genesis and propagation of light',
   ),
 };

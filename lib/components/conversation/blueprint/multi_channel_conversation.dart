@@ -2,12 +2,10 @@ import 'package:chapp/components/conversation/blueprint/conversation.dart';
 import 'package:chapp/components/message/blueprint/incoming_message.dart';
 import 'package:chapp/components/message/blueprint/message.dart';
 import 'package:chapp/global/common.dart';
-import 'package:chapp/global/group_list.dart';
-import 'package:chapp/global/people_list.dart';
+import 'package:chapp/global/subject_list.dart';
 import 'package:chapp/model/datetime/datetime_stamp.dart';
 import 'package:chapp/model/subject/group.dart';
 import 'package:chapp/model/subject/subject.dart';
-import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:flutter/material.dart';
 
 class MultiChannelConversation extends Conversation {
@@ -15,7 +13,8 @@ class MultiChannelConversation extends Conversation {
 
   List<MapEntry<String, Message>> messages = [];
 
-  MultiChannelConversation({@required String conversationId, @required this.groupId})
+  MultiChannelConversation(
+      {@required String conversationId, @required this.groupId})
       : super(id: conversationId);
 
   void addPerson(String personId) {
@@ -47,13 +46,8 @@ class MultiChannelConversation extends Conversation {
   }
 
   Group get group {
-    return groupList[this.groupId];
+    return subjectList[this.groupId];
   }
-
-  @override
-  Image get avatar => group.avatarUrl == null
-      ? ChappTheme.defaultGroupAvatar
-      : Image.network(group.avatarUrl);
 
   @override
   DateTimeStamp get lastActivityTimeStamp =>
@@ -62,9 +56,9 @@ class MultiChannelConversation extends Conversation {
   @override
   String get title => group.title;
 
-  String get lastMessageSenderId => peopleList[lastMessage.key].id;
+  String get lastMessageSenderId => subjectList[lastMessage.key].id;
 
-  String get lastMessageSenderTitle => peopleList[lastMessage.key].title;
+  String get lastMessageSenderTitle => subjectList[lastMessage.key].title;
 
   @override
   Subject get subject => this.group;

@@ -1,5 +1,5 @@
 import 'package:chapp/components/conversation/card/card.dart';
-import 'package:chapp/components/divider/divider.dart';
+import 'package:chapp/components/divider/horizontal_divider.dart';
 import 'package:chapp/global/conversations.dart';
 import 'package:chapp/helper/color.dart';
 import 'package:flutter/material.dart';
@@ -63,8 +63,9 @@ class ConversationsScreen extends StatelessWidget {
                   child: ConversationCard(conversationKey: cKey),
                 ),
                 HorizontalDivider(
-                  dividerIndentAmount: 72,
-                  dividerEndIndentAmount: 12,
+                  leftIndent: 72,
+                  rightIndent: 12,
+                  color: Colors.black12,
                 ),
               ],
             );

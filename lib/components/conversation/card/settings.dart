@@ -15,13 +15,15 @@ class ConversationCardSettings extends ComponentSettings {
   static Color unreadCountFontColor = Colors.white;
   static Color unreadCountWrapperColor = ChappTheme.themePrimaryColor;
 
-  static double avatarRadius = 2.9;
+  static double avatarSize = 6.0;
+  static Color avatarBackgroundColor = Colors.white;
   static double avatarBorderSize = 0.1;
   static Color avatarBorderColor = Colors.black54;
 
   static double avatarBadgeSize = 1;
   static double avatarBadgeBorderSize = 0.1;
   static Color avatarBadgeBorderColor = Colors.white;
+  static Alignment avatarBadgePosition = Alignment.topRight;
 
   static double lastActivityTimeStampFontSize = 1.4;
   static Color lastActivityTimeStampFontColor = Colors.black54;
@@ -40,7 +42,7 @@ class ConversationCardSettings extends ComponentSettings {
     unreadCountWrapperSize *= super.sizeRatioAmount;
     unreadCountFontSize *= super.sizeRatioAmount;
 
-    avatarRadius *= super.sizeRatioAmount;
+    avatarSize *= super.sizeRatioAmount;
     avatarBorderSize *= super.sizeRatioAmount;
 
     avatarBadgeSize *= super.sizeRatioAmount;

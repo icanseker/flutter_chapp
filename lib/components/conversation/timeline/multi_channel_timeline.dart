@@ -4,7 +4,7 @@ import 'package:chapp/components/conversation/timeline/timeline.dart';
 import 'package:chapp/components/message/blueprint/message.dart';
 import 'package:chapp/components/message/blueprint/outgoing_message.dart';
 import 'package:chapp/components/message/message_line.dart';
-import 'package:chapp/global/people_list.dart';
+import 'package:chapp/global/subject_list.dart';
 import 'package:flutter/material.dart';
 
 class MultiChannelTimeline extends StatelessWidget {
@@ -52,7 +52,7 @@ class MultiChannelTimeline extends StatelessWidget {
             );
 
           seriesSenderId = currentSenderId;
-          seriesSenderTitle = peopleList[currentSenderId].title;
+          seriesSenderTitle = subjectList[currentSenderId].title;
           seriesSenderColorRep =
               conversation.getMemberColorRepresentative(currentSenderId);
 

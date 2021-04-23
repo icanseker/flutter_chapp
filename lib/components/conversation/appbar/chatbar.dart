@@ -1,6 +1,4 @@
-import 'package:chapp/components/avatar/avatar_widget.dart';
-import 'package:chapp/components/avatar/blueprint/avatar_badge.dart';
-import 'package:chapp/components/avatar/blueprint/circle_avatar.dart';
+import 'package:chapp/components/avatar/blueprint/avatar_model.dart';
 import 'package:chapp/components/conversation/appbar/settings.dart';
 import 'package:chapp/components/empty_widget.dart';
 import 'package:flutter/material.dart';
@@ -10,16 +8,14 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final String subtitle;
   final Color subtitleColor;
-  final Image avatarImage;
-  final AvatarBadge avatarBadge;
+  final AvatarModel avatarModel;
 
   const ChatBar({
     Key key,
     @required this.title,
     this.subtitle,
     this.subtitleColor,
-    this.avatarImage,
-    this.avatarBadge,
+    this.avatarModel,
   }) : super(key: key);
 
   @override
@@ -40,18 +36,6 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ),
-            this.avatarImage != null
-                ? AvatarWidget(
-                    avatarShape: CircleShapedAvatar(
-                      radius: ChatBarSettings.avatarRadius,
-                    ),
-                    avatarImage: this.avatarImage,
-                    borderSize: ChatBarSettings.avatarBorderSize,
-                    borderColor: ChatBarSettings.avatarBorderColor,
-                    avatarBadge: this.avatarBadge,
-                  )
-                : EmptyWidget(),
-            this.avatarImage != null ? SizedBox(width: 12) : EmptyWidget(),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

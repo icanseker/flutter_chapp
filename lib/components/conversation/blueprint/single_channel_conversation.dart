@@ -1,19 +1,19 @@
 import 'package:chapp/components/conversation/blueprint/conversation.dart';
 import 'package:chapp/components/message/blueprint/incoming_message.dart';
 import 'package:chapp/components/message/blueprint/message.dart';
-import 'package:chapp/global/people_list.dart';
+import 'package:chapp/global/subject_list.dart';
 import 'package:chapp/model/datetime/datetime_stamp.dart';
 import 'package:chapp/model/subject/person.dart';
 import 'package:chapp/model/subject/person_status.dart';
 import 'package:chapp/model/subject/subject.dart';
-import 'package:chapp/model/theme/chapp_theme.dart';
 import 'package:flutter/material.dart';
 
 class SingleChannelConversation extends Conversation {
   final String personId;
   List<Message> messages = [];
 
-  SingleChannelConversation({@required String conversationId, @required this.personId})
+  SingleChannelConversation(
+      {@required String conversationId, @required this.personId})
       : super(id: conversationId);
 
   SingleChannelConversation addMessage(Message message) {
@@ -29,13 +29,8 @@ class SingleChannelConversation extends Conversation {
   }
 
   Person get person {
-    return peopleList[this.personId];
+    return subjectList[this.personId];
   }
-
-  @override
-  Image get avatar => person.avatarUrl == null
-      ? ChappTheme.defaultAvatar
-      : Image.network(person.avatarUrl);
 
   @override
   DateTimeStamp get lastActivityTimeStamp =>
@@ -43,8 +38,6 @@ class SingleChannelConversation extends Conversation {
 
   @override
   String get title => person.title;
-
-  PersonStatus get personStatus => person.status;
 
   @override
   Subject get subject => this.person;
